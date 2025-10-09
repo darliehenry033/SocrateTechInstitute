@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enregistrement</title>
+  <link rel="stylesheet" href="design.css">
+
+  <link rel="stylesheet" href="design.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header-container application-container">
+        <div class="hamburger-menu-container">
+          <div class="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+          <nav class="application-nav-control">
+            <div class="hamburger-menu close-x">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+             <div class="nav-left">
+              <a href="index.html"><img src="images/logowhite.png" alt=""></a>
+              </div>
+              <div class="nav-center">
+              <a class="accueil">Accueil</a>
+              <a class="filières">Classes</a>
+              <a class="filières">À Propos</a>
+              <a class="inscription">Inscription</a>
+              <a class="vieScolaire">Vie Scolaire</a>
+               </div>
+              
+             <div class="nav-right">
+              <button class="contact button">Enregistrer</button>
+              <button class="connexion button">Connexion</button>
+             
+             </div>
+          </nav>
+        <section class="application">
+        <p>Postuler à Socrate Tech Institute</p>      
+        </section>
+      </header>
+
+      <main>
+        <div class="application-notice-container"> 
+          <div class="application-notice-item">
+            <p><i class="fa-solid fa-quote-left"></i>Remplissez ce formulaire pour soumettre votre candidature et rejoindre la communauté Socrate Tech Institute. Toutes les informations seront traitées de manière confidentielle.<i class="fa-solid fa-quote-right"></i></p>
+          </div>
+        </div>
+          <div class="application-form-container">
+            <form action="">
+              <div class="personal-information personal-information-grid-part-1">
+               
+                
+                <div class="photo-upload">
+                  <label for="photoInput" class="photo-frame" id="photoFrame">
+                    <span>Ajouter Photo</span>
+                  </label>
+                  <input type="file" id="photoInput" class="photo-profile" name="photo-profile" accept="image/*" hidden>
+                </div>
+                
+          
+                <label for="fullname">Nom Complet</label>
+                <input type="text" class="fullname" name="fullname" required>
+          
+                <label for="dateOfBirth">Date de Naissance</label>
+                <input type="date" class="dateOfBirth" name="dateOfBirth" required>
+          
+                <label for="sexe">Sexe</label><br>
+                <input type="radio" id="homme" name="sexe" value="Homme" required>
+                <label for="homme">Homme</label>
+          
+                <input type="radio" id="femme" name="sexe" value="Femme">
+                <label for="femme">Femme</label>
+          
+                <label for="birthplace">Lieu de Naissance (Ville en Haïti)</label>
+                <select id="birthplace" name="birthplace" required>
+                  <option value="">-- Sélectionnez une ville --</option>
+                  <option value=""><script>loadHaitiCities();</script></option>
+                </select>
+                <label for="phoneNumber">Téléphone</label>
+                <input type="phone" class="phone" name="phone">
+  
+                <label for="email">Email</label>
+                <input type="email" class="email" name="email">
+  
+                <label for="address">Adresse Actuelle</label>
+                <input type="text" class="address" name="address">
+  
+              </div>
+  
+              <div class="personal-information-grid-part-2">
+                <div class="academic-information">
+                  <legend>Informations Académiques</legend>
+                  <div class="last-grade-completed">
+                    <label for="lastclass">Dernier niveau complété : </label>
+                    <select name="lastclass" id="lastclass">
+                      <option value="">7e</option>
+                      <option value="">8e</option>
+                      <option value="">9e</option>
+                      <option value="">NSI</option>
+                      <option value="">NSII</option>
+                      <option value="">NSIII</option>
+                      <option value="">NSIV</option>
+                    </select>
+                  </div>
+                  
+                  <div class="last-school-completed">
+                    <label for="lastschool">Dernier établissement fréquenté</label>
+                    <input type="text" name="lastSchool" class="lastSchool">
+                  </div>
+  
+                  
+                  <label for="modernCourses">Intérêts pour les cours modernes :</label>
+                  <div class="programming">
+                    <input type="radio" name="modernCourse" id="programming">
+                    <label for="programming">Programmation</label>
+                  </div>
+  
+                     <div class="ai">
+                      <input type="radio" name="modernCourse" id="AI" >
+                      <label for="AI">Intelligence Artificielle</label>
+                     </div>
+                 
+                        <div class="cybersecurity">
+                          <input type="radio" name="modernCourse" id="cybersecurity" >
+                          <label for="cybersecurity">Cybersécurité</label>
+                        </div>
+                       <div class="agriculture">
+                        <input type="radio" name="modernCourse" id="agriculture" >
+                        <label for="agriculture">Agriculture</label>
+                       </div> 
+                       <div class="first-aid">
+                        <input type="radio" name="modernCourse" id="firstAid" >
+                  <label for="firstAid">Premiers Soins</label>
+                       </div>
+  
+    
+                 
+                   
+                  
+    
+                </div>
+    
+                <div class="requiredDocuments">
+                  <legend>Documents Requis</legend>
+                
+                  <section class="required-documents-flex-container">
+                    <div class="birthAct" id="birthActBox">
+                      <label for="birthActInput">Acte de Naissance ou Extrait des Archives</label>
+                      <input type="file" id="birthActInput" class="birthAct-doc" name="birthAct" hidden>
+                      <span class="file-name">Aucun fichier choisi</span>
+                    </div>
+                
+                    <div class="transcript" id="transcriptsBox">
+                      <label for="transcriptsInput">Relevés de notes</label>
+                      <strong>(incluant toutes les classes précédentes et la dernière classe)</strong>
+                      <input type="file" id="transcriptsInput" class="transcript-doc" name="transcripts[]" multiple hidden>
+                      <span class="file-name">Aucun fichier choisi</span>
+                    </div>
+                  </section>
+                </div>
+                
+    
+                <div class="confirmValidation">
+                  <div class="validation-input">
+                    <input type="checkbox" id="validation" name="validation">
+                  <label for="textConfirm">Je Certifie que toutes les informations sont exactes et que les documents téléchargés sont authentiques.</label>
+                  </div>
+                  <div class="button-container">
+                    <button id="submitRequest" class="button submit-button">Soumettre ma candidature</button>
+                  </div>
+                 
+                </div>
+    
+              </div>
+  
+             
+            </form>
+          </div>
+
+
+        <section class="footer-wrapper">
+          <footer class="footer">
+            <section class="footer-top">
+              <h1>Connectés pour Inspirer et Éduquer</h1>
+                <div class="logo-container">
+                  <a href="index.html"><img src="images/logowhite.png" alt=""></a>
+                </div>
+                <div class="social-media-container">
+                  <a href=""><i class="fa-brands fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-square-instagram"></i></a>
+                  <a href=""><i class="fa-solid fa-envelope"></i></a>
+                  <a href=""><i class="fa-solid fa-phone"></i></a>
+                  <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
+                  <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </section>
+            <section class="footer-body">
+              <div class="links-container">
+                <h2>Accueil</h2>
+                <a href="">Présentation</a>
+                <a href="">Pourquoi SocrateTech ?</a>
+                <a href="">Témoignages</a>
+                <a href="">Nos Partenaires</a>
+              </div>
+              <div class="links-container">
+                <h2>Classes & Cours</h2>
+                <a href="">Filières Académiques</a>
+                <a href="">Cours Modernes</a>
+                <a href="">Agriculture & IA</a>
+                <a href="">Cours d’Été / Club</a>
+              
+              </div>
+              <div class="links-container">
+                <h2>Inscription</h2>
+                <a href="">Comment s’inscrire ?</a>
+                <a href="">Examens d’entrée</a>
+                <a href="">Documents requis</a>
+                <a href="">Aide financière</a>
+              </div>
+              <div class="links-container">
+                <h2>Contact</h2>
+                <div class="links-container-contact"> <h3>Adresse :</h3>
+                  <a href="">Carrefour, Haïti</a></div>
+                <div class="links-container-contact"><h3> Téléphone :</h3>
+                  <a href="">+509 45 67 89 00</a></div>
+                <div class="links-container-contact"><h3>Email :</h3>
+                  <a href="">info@socratetech.edu.ht</a></div>
+                <div class="links-container-contact"> <h3>Heures :</h3>
+                  <a href="">Lun-Ven, 8h - 16h</a></div>
+                   
+              </div>
+            </section>
+            <section class="footer-end">
+              <p><i class="fa-regular fa-copyright"></i> 2025 SocrateTech Institute. Tous droits réservés.</p>
+              <p>Développé avec passion pour propulser la nouvelle génération haïtienne vers l'excellence éducative et technologique.</p>
+            </section>
+          </footer>
+        </section>
+
+
+      </main>
+
+
+
+
+
+
+
+  
+
+  
+<script src="script.js"></script>
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script>
+</body>
+</html>
