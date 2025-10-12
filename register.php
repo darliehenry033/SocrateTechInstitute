@@ -99,7 +99,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <span class="social-icon"><i class="fab fa-github"></i></span>
             <span class="social-icon"><i class="fas fa-link"></i></span>
           </div>          
-            <button class="contact button button-register" type="submit" name="register_submit" >Enregistrer</button>  
+            <button class="contact button button-register" type="submit" name="register_submit" style="color: white";>Enregistrer</button>  
         </form>
       
       </div>
