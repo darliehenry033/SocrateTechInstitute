@@ -128,10 +128,10 @@
             <span><i class="fa-solid fa-plus"></i></span></button>
         <div class="user-management-tab-container">
           <div class="user-management-button-container">
-            <button class="user-management-tab-button" data-tab="1">Admin</button>
+            <button class="user-management-tab-button" data-tab="1">Admins</button>
             <button class="user-management-tab-button" data-tab="2">Teachers</button>
             <button class="user-management-tab-button" data-tab="3">Students</button>
-            <button class="user-management-tab-button" data-tab="4">Staff M.</button>
+            <button class="user-management-tab-button" data-tab="4">Parents</button>
           
             </div>
                <div class="user-management-content-container " data-tab="1">

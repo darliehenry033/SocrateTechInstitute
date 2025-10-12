@@ -1,8 +1,15 @@
 <?php
+include 'database.php';
+include 'partials/functions.php';
+include 'partials/linkheader.php';
+
+/* 
 if(is_user_logged_in()){
   redirect('admindash.php');
   }
-  
+
+
+*/
   $username = $email = $password = $password_confirm = $role = "";
   $error = "";
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -12,37 +19,46 @@ if(is_user_logged_in()){
   
     if(empty($username) ||  empty($password)){
       $error = "The fields cannot be empty";
-    }else if(user_exists($connect,$username)){
-    $error = "Username already exists. Please pick another one.";
+    }else if(!user_exists($connect,$username)){
+    $error = "Unknown Username. Please Register first before Login.";
     }
     
     else if(strlen($password) < 8){
       $error = "Password and Password Confirm should have at least 8 characters";
     }else{
       //Logic
-      $sql = "SELECT username,password FROM users WHERE user_id = ? LIMIT 1";
+      $sql = "SELECT user_id,username,password FROM users WHERE username = ? LIMIT 1";
       $stmt = mysqli_prepare($connect,$sql);
-      mysqli_stmt_bind_param($stmt,'ss',$username,$password);
-      $result = mysqli_stmt_get_result($connect,$stmt);
-      if($result && ($user = mysqli_fetch_assoc($result))){
+      mysqli_stmt_bind_param($stmt,'s',$username);
+      
+      //$result = mysqli_stmt_get_result($stmt); 
+     
+      if( !mysqli_stmt_execute($stmt)      /**$result && ($user = mysqli_fetch_assoc($result))*/){
           if(password_verify($password,$user['password'])){
             $_SESSION['username'] = $username;
-           $_SESSION['logged_in'] = true;
-           redirect('admindash.php');
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['logged_in'] = true;
+            $_SESSION['role'] = $user['role'];
+              
+            $routes = [
+          
+              'parent' => 'parentdash.php',
+              'teacher' => 'teacherdash.php',
+              'student' => 'studentdash.php',
+              'admin' => 'admindash.php'
+            ];
+    
+            $target = $routes[$user['role']] ?? 'index.php'; 
+            redirect("$target");
           }
           else{
             $error = "Invalid Username or Password";
           }
          
-      }else{
-          $error = "Failed to insert data from our DB caused of this error".$error;
       }
       mysqli_stmt_close($stmt);
     }
   }
-
-
-
 ?>
 
 <div class="login-container-overlay-bg">
@@ -62,8 +78,8 @@ if(is_user_logged_in()){
             <p style="color: red";><?php echo htmlspecialchars($error)?></p>
           </div>
           <?php endif;?>
-        <input type="email" placeholder="Votre Email: " class="email" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>">
-          <input type="password" placeholder="Votre Mot-de-Passe: " class="password" value ="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : '' ?>">
+        <input type="text" name = "username" placeholder="Votre Nom d'utilisateur: " class="email" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>">
+          <input type="password" name = "password" placeholder="Votre Mot-de-Passe: " class="password">
           <p><span>Ou</span><br>Login avec les réseaux sociaux</p>
           <div class="social-media">
             <span class="social-icon"><i class="fab fa-google"></i></span>

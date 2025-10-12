@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $password_confirm =  isset($_POST['password_confirm']) ? mysqli_real_escape_string($connect,trim(strip_tags($_POST['password_confirm']))) : '';
   $role = isset($_POST['role']) ? mysqli_real_escape_string($connect,trim(strip_tags($_POST['role']))) : '';
 
-  if(empty($username) || empty($email) || empty($password) || empty($password_confirm)){
+  if(empty($username) || empty($email) || empty($password) || empty($password_confirm || empty($role))){
     $error = "The fields cannot be empty";
   }else if(user_exists($connect,$username)){
   $error = "Username already exists. Please pick another one.";
@@ -39,9 +39,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $stmt = mysqli_prepare($connect,$sql);
     mysqli_stmt_bind_param($stmt,'ssss',$username,$email,$password_hash,$role);
     if(mysqli_stmt_execute($stmt)){
-        $_SESSION['username'] = $username;
-        $_SESSION['logged_in'] = true;
-        redirect('admindash.php');
+       
+
+        $routes = [
+          
+          'parent' => 'parentdash.php',
+          'teacher' => 'teacherdash.php',
+          'student' => 'studentdash.php',
+          'admin' => 'admindash.php'
+        ];
+
+        if(!isset($routes[$role])){
+           $error = "Invalid role selected";
+        }else{
+          $_SESSION['username'] = $username;
+          $_SESSION['logged_in'] = true;
+          $_SESSION['role'] = $role;
+          redirect("{$routes[$role]}");
+        }
     }else{
         $error = "Failed to insert data from our DB caused of this error".$error;
     }

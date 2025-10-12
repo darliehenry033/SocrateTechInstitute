@@ -1,3 +1,20 @@
 {
-    "liveServer.settings.port": 5502
+    "liveServer.settings.port": 5502,
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "jeanleyder",
+            "group": "socrate_group",
+            "database": "socrate_tech_institute",
+            "username": "jeanleyder"
+        }
+    ]
 }
