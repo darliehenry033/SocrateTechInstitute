@@ -39,8 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $stmt = mysqli_prepare($connect,$sql);
     mysqli_stmt_bind_param($stmt,'ssss',$username,$email,$password_hash,$role);
     if(mysqli_stmt_execute($stmt)){
-       
-
+      
         $routes = [
           
           'parent' => 'parentdash.php',
@@ -105,6 +104,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       </div>
     </div>
   </div>
-
+ 
 
 <?php include 'partials/footer.php'?>
