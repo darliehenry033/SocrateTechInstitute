@@ -1706,19 +1706,7 @@ font-weight: bold;
     color:var(--color-light-blue);
     
   }
-
-
-  
-
-
-
-
-  
-
-
-
   /*Register and login modals*/
- 
   .regislog-right{
     flex-basis: 50%;
     margin-top: 10%;
@@ -2000,9 +1988,7 @@ font-weight: bold;
     display: inline-flex;
     width: 150px;
     justify-content: space-around;
-
   }
-
   .search-form {
     display: flex;
     align-items: center;
@@ -2010,14 +1996,12 @@ font-weight: bold;
     border-radius: 5px;
     padding: 5px 10px;
   }
-  
   .search-form input {
     border: none;
     outline: none;
     flex: 1;
     padding: 5px;
   }
-  
   .search-form button {
     border: none;
     background: none;
@@ -2028,7 +2012,6 @@ font-weight: bold;
     display: flex;
     justify-content: center;
     margin-top: var(--spacing-xl);
-    
   }
   .dashboard-card-container{
    width: 95%;
@@ -2565,6 +2548,7 @@ font-weight: bold;
   white-space: nowrap;
   text-align: left;
 }
+
 
 
 
