@@ -2431,31 +2431,53 @@ font-weight: bold;
   border-top-right-radius: 10px;
   border-bottom-right-radius:10px;
 }
-.courses-table table{
-  border-collapse:collapse;
-  padding: 50px;
+
+.courses-container{
+  width: 80vw;
+  max-height: 550px;
+  border-radius: 5px;
+  border: 2px solid #071426;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  margin-top: 30px;
+
 }
-.courses-table th, .courses-table td{
-  border: 2px solid black;
-  text-align: center;
-}
-.courses-table td{
-  padding: 20px;
-  font-family: var(--font-body);
-  font-weight:normal;
-}
-.courses-table th{
-  padding: 10px;
+.courses-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  border-radius: 5px;
 }
 
+/* Cells */
+.courses-table th,
+.courses-table td {
+  padding: 8px 10px;
+  border: 2px solid #071426;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.courses-table thead th {
+  position: sticky;
+  top: 0;          
+  background-color: #071426;
+  color: #fff;
+  z-index: 2;
+  top: -10px;
+}
+
+
+
 .new-course{
-  margin-bottom: 20px;
   margin-top:20px;
   border-radius: 10px;
   background-color: #071426;
   color: white;
   height: 40px;
   width: 200px;
+
 }
 .cross{
   display:inline-flex;

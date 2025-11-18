@@ -473,5 +473,364 @@ CREATE TABLE student_parents (
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (parent_id)  REFERENCES parents(parent_id)
 );
+ALTER TABLE students
+DROP classroom_id;
+
+ALTER TABLE students
+DROP parent_id;
+
+DROP TABLE students;
+
+ALTER TABLE students
+DROP FOREIGN KEY student_id;
+
+ALTER TABLE attendance
+DROP FOREIGN KEY student_id;
+
+DROP TABLE attendance;
+
+ALTER TABLE students
+DROP student_id;
+
+DROP TABLE student_parents;
+DROP TABLE students;
+DROP TABLE parents;
+
+CREATE TABLE gender(
+gender_id INT PRIMARY KEY AUTO_INCREMENT,
+gender_name VARCHAR(50)
+);
+CREATE TABLE relation(
+relation_id INT PRIMARY KEY AUTO_INCREMENT,
+relation_name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO relation (relation_name)
+VALUES ('Mother'), ('Father'), ('Uncle'), ('Aunt'),
+       ('Grandmother'), ('Grandfather'), ('Legal Guardian');
+
+
+
+CREATE TABLE students(
+ student_id INT PRIMARY KEY AUTO_INCREMENT,
+ first_name VARCHAR(150) NOT NULL,
+ last_name VARCHAR(150) NOT NULL,
+ date_of_birth DATE NOT NULL,
+ phone VARCHAR(50) NOT NULL,
+ email VARCHAR(200) NOT NULL,
+ place_of_birth VARCHAR(100) NOT NULL,
+ address VARCHAR(200) NOT NULL,
+ age INT NOT NULL,
+ gender_id INT,
+ 
+ FOREIGN KEY (gender_id) REFERENCES gender(gender_id)
+
+);
+
+ALTER TABLE students
+ADD user_id INT;
+
+ALTER TABLE students
+ADD FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+CREATE TABLE parents(
+parent_id INT PRIMARY KEY AUTO_INCREMENT,
+user_id INT,
+first_name VARCHAR(150) NOT NULL,
+last_name VARCHAR(150) NOT NULL,
+phone VARCHAR(80) NOT NULL,
+email VARCHAR(200) NOT NULL
+);
+ALTER TABLE parents 
+ADD FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+CREATE TABLE student_parents(
+student_parents_id INT PRIMARY KEY AUTO_INCREMENT,
+parent_id INT,
+student_id INT,
+relation_id INT,
+
+FOREIGN KEY (parent_id) REFERENCES parents(parent_id),
+FOREIGN KEY (student_id) REFERENCES students(student_id),
+FOREIGN KEY (relation_id) REFERENCES relation(relation_id)
+);
+
+ALTER TABLE students
+ADD class_id INT;
+
+ALTER TABLE students
+ADD FOREIGN KEY (class_id) REFERENCES classes(class_id);
+
+INSERT INTO gender (gender_id, gender_name) VALUES
+(1, 'Male'),
+(2, 'Female');
+
+INSERT INTO relation (relation_id, relation_name) VALUES
+(1, 'Mother'),
+(2, 'Father'),
+(3, 'Legal Guardian'),
+(4,'Uncle'),
+(5,'Aunt'),
+(6,'GrandMother'),
+(7,'GrandFather'),
+(8,'Cousin');
+INSERT INTO students
+(student_id, first_name, last_name, date_of_birth, phone, email,
+ place_of_birth, address, age, gender_id, user_id, class_id)
+VALUES
+(1, 'Sophie',  'Charles', '2012-08-12', '50931234501', 'sophie.charles@sti.ht',
+ 'Port-au-Prince', 'Carrefour', 13, 2, 2, 1),
+(2, 'Samuel',  'Pierre',  '2012-04-03', '50931234502', 'samuel.pierre@sti.ht',
+ 'Cap-Haïtien', 'Delmas', 13, 1, NULL, 1),
+(3, 'Laura',   'Benoit',  '2011-11-30', '50931234503', 'laura.benoit@sti.ht',
+ 'Jacmel', 'Pétion-Ville', 14, 2, NULL, 1),
+(4, 'Kevin',   'Louis',   '2012-02-18', '50931234504', 'kevin.louis@sti.ht',
+ 'Gonaïves', 'Croix-des-Bouquets', 13, 1, NULL, 1),
+(5, 'Ruth',    'Jean',    '2011-09-09', '50931234505', 'ruth.jean@sti.ht',
+ 'Léogâne', 'Carrefour', 14, 2, NULL, 1);
+ 
+ INSERT INTO parents
+(parent_id, user_id, first_name, last_name, phone, email)
+VALUES
+(1, NULL, 'David',   'Charles', '50936234501', 'david.charles@sti.ht'),
+(2, NULL, 'Eliane',  'Charles', '50936234502', 'eliane.charles@sti.ht'),
+(3, NULL, 'Jean',    'Pierre',  '50936234503', 'jean.pierre@sti.ht'),
+(4, NULL, 'Marie',   'Pierre',  '50936234504', 'marie.pierre@sti.ht'),
+(5, NULL, 'Michel',  'Benoit',  '50936234505', 'michel.benoit@sti.ht'),
+(6, NULL, 'Claire',  'Benoit',  '50936234506', 'claire.benoit@sti.ht'),
+(7, NULL, 'Paul',    'Louis',   '50936234507', 'paul.louis@sti.ht'),
+(8, NULL, 'Sandra',  'Louis',   '50936234508', 'sandra.louis@sti.ht'),
+(9, NULL, 'Richard', 'Jean',    '50936234509', 'richard.jean@sti.ht'),
+(10,NULL, 'Nadine',  'Jean',    '50936234510', 'nadine.jean@sti.ht');
+
+INSERT INTO student_parents
+(student_parents_id, parent_id, student_id, relation_id)
+VALUES
+(1, 1, 1, 2),
+(2, 2, 1, 1),
+(3, 3, 2, 2),
+(4, 4, 2, 1),
+(5, 5, 3, 2),
+(6, 6, 3, 1),
+(7, 7, 4, 2),
+(8, 8, 4, 1),
+(9, 9, 5, 2),
+(10,10,5, 1);
+SELECT * FROM students;
+SELECT * FROM parents;
+SELECT * FROM student_parents;
+SELECT * FROM relation;
+SELECT * FROM gender;
+
+INSERT INTO students (student_id, first_name, last_name, class_id, date_of_birth, gender_id, phone, email, place_of_birth, address, age)
+VALUES
+(6, 'Nadia', 'Pierre', 1, '2011-05-02', 2, '50931234506', 'nadia.pierre@sti.ht', 'Cap-Haïtien', 'Delmas', 14),
+(7, 'Michael', 'Joseph', 1, '2012-01-16', 1, '50931234507', 'michael.joseph@sti.ht', 'Port-au-Prince', 'Tabarre', 13),
+(8, 'Isabelle', 'Louis', 1, '2011-07-09', 2, '50931234508', 'isabelle.louis@sti.ht', 'Jacmel', 'Pétion-Ville', 14),
+(9, 'James', 'Michel', 1, '2011-02-27', 1, '50931234509', 'james.michel@sti.ht', 'Gonaïves', 'Carrefour', 14),
+(10, 'Naomi', 'Jean-Baptiste', 1, '2012-06-10', 2, '50931234510', 'naomi.jeanbaptiste@sti.ht', 'Saint-Marc', 'Delmas', 13),
+(11, 'Patrick', 'François', 1, '2011-03-25', 1, '50931234511', 'patrick.francois@sti.ht', 'Hinche', 'Cité-Soleil', 14),
+(12, 'Sophia', 'Joseph', 1, '2012-09-02', 2, '50931234512', 'sophia.joseph@sti.ht', 'Jacmel', 'Pétion-Ville', 13),
+(13, 'Ethan', 'Pierre-Louis', 1, '2011-12-17', 1, '50931234513', 'ethan.pierrelouis@sti.ht', 'Les Cayes', 'Carrefour', 14),
+(14, 'Grace', 'Paul', 1, '2011-08-20', 2, '50931234514', 'grace.paul@sti.ht', 'Gonaïves', 'Delmas', 14),
+(15, 'Daniel', 'Louis-Charles', 1, '2012-05-29', 1, '50931234515', 'daniel.louischarles@sti.ht', 'Port-au-Prince', 'Pétion-Ville', 13),
+(16, 'Mika', 'Desir', 1, '2011-01-10', 2, '50931234516', 'mika.desir@sti.ht', 'Cap-Haïtien', 'Croix-des-Bouquets', 14),
+(17, 'Samuel', 'Jean-François', 1, '2012-10-15', 1, '50931234517', 'samuel.jeanfrancois@sti.ht', 'Hinche', 'Delmas', 13),
+(18, 'Chloe', 'Benoit', 1, '2011-03-05', 2, '50931234518', 'chloe.benoit@sti.ht', 'Jacmel', 'Carrefour', 14),
+(19, 'Nathan', 'Charles', 1, '2012-07-08', 1, '50931234519', 'nathan.charles@sti.ht', 'Port-de-Paix', 'Pétion-Ville', 13),
+(20, 'Alicia', 'Paul', 1, '2011-09-22', 2, '50931234520', 'alicia.paul@sti.ht', 'Les Cayes', 'Delmas', 14),
+(21, 'Leon', 'Michel', 1, '2012-02-13', 1, '50931234521', 'leon.michel@sti.ht', 'Gonaïves', 'Croix-des-Bouquets', 13),
+(22, 'Julia', 'Francois', 1, '2011-12-09', 2, '50931234522', 'julia.francois@sti.ht', 'Cap-Haïtien', 'Delmas', 14),
+(23, 'Anthony', 'Jean', 1, '2012-04-11', 1, '50931234523', 'anthony.jean@sti.ht', 'Saint-Marc', 'Pétion-Ville', 13),
+(24, 'Victoria', 'Pierre', 1, '2011-06-18', 2, '50931234524', 'victoria.pierre@sti.ht', 'Jacmel', 'Carrefour', 14),
+(25, 'Ryan', 'Joseph', 1, '2011-10-04', 1, '50931234525', 'ryan.joseph@sti.ht', 'Hinche', 'Delmas', 14),
+(26, 'Ella', 'Louis', 1, '2012-08-28', 2, '50931234526', 'ella.louis@sti.ht', 'Port-au-Prince', 'Croix-des-Bouquets', 13),
+(27, 'Gabriel', 'Paul', 1, '2011-05-14', 1, '50931234527', 'gabriel.paul@sti.ht', 'Les Cayes', 'Carrefour', 14),
+(28, 'Luna', 'Benoit', 1, '2012-03-07', 2, '50931234528', 'luna.benoit@sti.ht', 'Jacmel', 'Delmas', 13),
+(29, 'Marcus', 'Louis', 1, '2011-11-19', 1, '50931234529', 'marcus.louis@sti.ht', 'Cap-Haïtien', 'Tabarre', 14),
+(30, 'Clara', 'Jean-Pierre', 1, '2012-09-09', 2, '50931234530', 'clara.jeanpierre@sti.ht', 'Port-au-Prince', 'Delmas', 13);
+
+INSERT INTO parents (parent_id, first_name, last_name, phone, email)
+VALUES
+(11, 'Pierre', 'Pierre', '50936234511', 'pierre.pierre@sti.ht'),
+(12, 'Nadia', 'Pierre', '50936234512', 'nadia.pierre@sti.ht'),
+(13, 'Joseph', 'Joseph', '50936234513', 'joseph.joseph@sti.ht'),
+(14, 'Marie', 'Joseph', '50936234514', 'marie.joseph@sti.ht'),
+(15, 'Louis', 'Louis', '50936234515', 'louis.louis@sti.ht'),
+(16, 'Sophie', 'Louis', '50936234516', 'sophie.louis@sti.ht'),
+(17, 'Michel', 'Michel', '50936234517', 'michel.michel@sti.ht'),
+(18, 'Laura', 'Michel', '50936234518', 'laura.michel@sti.ht'),
+(19, 'Jean-Baptiste', 'Jean-Baptiste', '50936234519', 'jeanbaptiste.jeanbaptiste@sti.ht'),
+(20, 'Naomi', 'Jean-Baptiste', '50936234520', 'naomi.jeanbaptiste@sti.ht'),
+(21, 'François', 'François', '50936234521', 'francois.francois@sti.ht'),
+(22, 'Patricia', 'François', '50936234522', 'patricia.francois@sti.ht'),
+(23, 'Pierre-Louis', 'Pierre-Louis', '50936234523', 'pierre.louis@sti.ht'),
+(24, 'Claire', 'Pierre-Louis', '50936234524', 'claire.pierrelouis@sti.ht'),
+(25, 'Paul', 'Paul', '50936234525', 'paul.paul@sti.ht'),
+(26, 'Grace', 'Paul', '50936234526', 'grace.paul@sti.ht'),
+(27, 'Louis-Charles', 'Louis-Charles', '50936234527', 'louischarles.louischarles@sti.ht'),
+(28, 'Daniel', 'Louis-Charles', '50936234528', 'daniel.louischarles@sti.ht'),
+(29, 'Desir', 'Desir', '50936234529', 'desir.desir@sti.ht'),
+(30, 'Mika', 'Desir', '50936234530', 'mika.desir@sti.ht'),
+(31, 'Jean-François', 'Jean-François', '50936234531', 'jeanfrancois.jeanfrancois@sti.ht'),
+(32, 'Samuel', 'Jean-François', '50936234532', 'samuel.jeanfrancois@sti.ht'),
+(33, 'Benoit', 'Benoit', '50936234533', 'benoit.benoit@sti.ht'),
+(34, 'Chloe', 'Benoit', '50936234534', 'chloe.benoit@sti.ht'),
+(35, 'Charles', 'Charles', '50936234535', 'charles.charles@sti.ht'),
+(36, 'Nathan', 'Charles', '50936234536', 'nathan.charles@sti.ht'),
+(37, 'Paul', 'Paul', '50936234537', 'paul2.paul@sti.ht'),
+(38, 'Alicia', 'Paul', '50936234538', 'alicia.paul@sti.ht'),
+(39, 'Michel', 'Michel', '50936234539', 'michel2.michel@sti.ht'),
+(40, 'Leon', 'Michel', '50936234540', 'leon.michel@sti.ht');
+
+
+INSERT INTO student_parents (student_id, parent_id)
+VALUES
+(6, 11), (6, 12),
+(7, 13), (7, 14),
+(8, 15), (8, 16),
+(9, 17), (9, 18),
+(10, 19), (10, 20),
+(11, 21), (11, 22),
+(12, 23), (12, 24),
+(13, 25), (13, 26),
+(14, 27), (14, 28),
+(15, 29), (15, 30),
+(16, 31), (16, 32),
+(17, 33), (17, 34),
+(18, 35), (18, 36),
+(19, 37), (19, 38),
+(20, 39), (20, 40),
+(21, 7),  (21, 8),
+(22, 9),  (22, 10),
+(23, 1),  (23, 2),
+(24, 3),  (24, 4),
+(25, 5),  (25, 6),
+(26, 7),  (26, 8),
+(27, 9),  (27, 10),
+(28, 1),  (28, 2),
+(29, 3),  (29, 4),
+(30, 5),  (30, 6);
+
+USE socrate_tech_institute;
+
+ALTER TABLE courses
+ADD COLUMN course_code VARCHAR(20);
+
+UPDATE courses 
+SET course_code = CONCAT(UPPER(SUBSTRING(course_name,1,3)), course_id)
+WHERE course_id = LAST_INSERT_ID();
+
+INSERT INTO courses (course_name, coefficient, description, class_id, teacher_id)
+VALUES ('Biology I', 3, 'Fundamentals…', 1, 2);
+
+DELIMITER $$
+
+CREATE TRIGGER trg_generate_course_code
+AFTER INSERT ON courses
+FOR EACH ROW
+BEGIN
+    UPDATE courses
+    SET course_code = CONCAT(
+        UPPER(SUBSTRING(NEW.course_name, 1, 3)),
+        NEW.course_id
+    )
+    WHERE course_id = NEW.course_id;
+END $$
+
+DELIMITER ;
+INSERT INTO courses (course_name, coefficient, description, class_id, teacher_id)
+VALUES ('Biology I', 3, 'Fundamentals…', 1, 2);
+
+
+SELECT * FROM classes;
+SELECT * FROM teachers;
+
+INSERT INTO courses (course_name, coefficient, description, class_id, teacher_id)
+VALUES (
+  'Biology I',
+  3,
+  'Fundamentals of living organisms: cell structure, human biology, and ecology.',
+  1,  -- must exist in classes
+  1   -- must exist in teachers
+);
+
+DROP TABLE IF EXISTS classes;
+
+SHOW CREATE TABLE courses;
+
+ALTER TABLE courses
+DROP FOREIGN KEY courses_ibfk_1;
+
+ALTER TABLE courses
+DROP FOREIGN KEY courses_ibfk_2;
+
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    CONSTRAINT_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE 
+    TABLE_SCHEMA = 'socrate_tech_institute'
+    AND REFERENCED_TABLE_NAME = 'courses';
+
+ALTER TABLE schedule
+DROP FOREIGN KEY schedule_ibfk_3;
+
+DROP TABLE courses;
+
+INSERT INTO courses (course_name, coefficient, description,class_id,teacher_id)
+VALUES ('Break', 0, NULL,NULL,NULL);
+
+CREATE TABLE courses (
+  course_id    INT PRIMARY KEY AUTO_INCREMENT,
+  course_name  VARCHAR(150) NOT NULL,
+  coefficient  TINYINT      NOT NULL,
+  description  VARCHAR(150) NOT NULL,
+  class_id     INT,
+  teacher_id   INT,
+  course_code  VARCHAR(20),          -- normal column, can be NULL at insert
+
+  FOREIGN KEY (class_id)   REFERENCES classes(class_id),
+  FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id)
+);
+INSERT INTO courses (course_name, coefficient, description, class_id, teacher_id)
+VALUES
+('Haitian Creole', 3, 'Reading and writing in Haitian Creole.', 1, 1),
+('French', 3, 'Basic French grammar and vocabulary.', 1, 2),
+('English', 2, 'Simple English communication.', 1, 3),
+('Mathematics', 4, 'Arithmetic and problem-solving.', 1, 4),
+('Integrated Science', 3, 'Life and physical science basics.', 1, 5),
+('Social Sciences', 2, 'Haitian history and geography.', 1, 6),
+('Civic & Moral Education', 2, 'Values, respect, and citizenship.', 1, 7),
+('Visual Arts', 1, 'Drawing and creative expression.', 1, 8),
+('Physical Education', 1, 'Games, sports, physical fitness.', 1, 9),
+('ICT Skills I', 2, 'Keyboard, mouse, and basic computer software training.', 1, 10);
+
+INSERT INTO courses (course_name, coefficient, description, class_id, teacher_id)
+VALUES
+('Haitian Creole',      3, 'Reading and writing in Haitian Creole.',           1, 1),
+('French',              3, 'Basic French grammar and vocabulary.',             1, 2),
+('English',             2, 'Simple English communication.',                    1, 3),
+('Mathematics',         4, 'Arithmetic and problem-solving.',                  1, 14),
+('Integrated Science',  3, 'Life and physical science basics.',                1, 15),
+('Social Sciences',     2, 'Haitian history and geography.',                   1, 16),
+('Civic Education',     2, 'Values, respect, and citizenship.',                1, 17),
+('Visual Arts',         1, 'Drawing and creative expression.',                 1, 18),
+('Physical Education',  1, 'Games, sports, physical fitness.',                 1, 19),
+('ICT Skills I',        2, 'Keyboard, mouse, and basic computer skills.',      1, 20);
+
+
+
+
+ SET SQL_SAFE_UPDATES = 0;
+ UPDATE courses
+SET course_code = CONCAT(UPPER(SUBSTRING(course_name, 1, 3)), course_id)
+WHERE course_code IS NULL OR course_code = '';
+
+
+ 
+
 
 

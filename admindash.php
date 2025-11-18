@@ -4,6 +4,34 @@ include 'database.php';
 include 'partials/functions.php';
 include 'partials/header.php';
 
+//Add course And generated Course_ID
+if (isset($_POST['add_course'])) {
+
+    $course_name = $_POST['course_name'];
+    $coefficient = $_POST['coefficient'];
+    $description = $_POST['description'];
+    $class_id = $_POST['class_id'];
+    $teacher_id = $_POST['teacher_id'];
+
+    // Insert without course_code
+    mysqli_query($connect, "
+        INSERT INTO courses (course_name, coefficient, description, class_id, teacher_id)
+        VALUES ('$course_name', '$coefficient', '$description', '$class_id', '$teacher_id')
+    ");
+
+    // Get AUTO_INCREMENT ID
+    $course_id = mysqli_insert_id($connect);
+
+    // Generate final course code
+    $course_code = strtoupper(substr($course_name, 0, 3)) . $course_id;
+
+    // Update row
+    mysqli_query($connect, "
+        UPDATE courses
+        SET course_code = '$course_code'
+        WHERE course_id = '$course_id'
+    ");
+}
 /* ---------- Helpers ---------- */
 function h($v){ return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 
@@ -316,150 +344,128 @@ foreach ($userTabs as $key => $def) {
               </div>
             </div>
           </div>
-
+          
           <!-- 7e: Courses -->
-          <div class="classes-content-info-container courses-table" data-tab="2">
-            <button class="new-course button">Add a New Course<i class="fa-solid fa-plus cross"></i></button>
-
-            <table>
+          <div class="classes-content-info-container" data-tab="2">
+          <button class="new-course button">Add a New Course<i class="fa-solid fa-plus cross"></i></button>
+            <div class="courses-container">    
+            <table class="courses-table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Course ID</th>
+                  <th>Course Code</th>
                   <th>Course Name</th>
                   <th>Teacher</th>
-                  <th>Time</th>
                   <th>Coefficient</th>
                   <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
+
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>SCI-701</td>
-                  <td>General Science</td>
-                  <td>Prof. JEAN Witch Leyder</td>
-                  <td>Mon 09:00 – 10:45</td>
-                  <td>3</td>
-                  <td>Introduction to life, matter, and energy with weekly experiments.</td>
-                  <td>
-                    <button class="button edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="button delete"><i class="fa-solid fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>MTH-702</td>
-                  <td>Mathematics</td>
-                  <td>Prof. Jean W. Leyder</td>
-                  <td>Tue 08:00 – 09:45</td>
-                  <td>4</td>
-                  <td>Algebra, geometry, and problem-solving to strengthen logical reasoning.</td>
-                  <td>
-                    <button class="button edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="button delete"><i class="fa-solid fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>ENG-703</td>
-                  <td>English Language</td>
-                  <td>Prof. Marie Claude</td>
-                  <td>Wed 10:00 – 11:45</td>
-                  <td>2</td>
-                  <td>Focus on grammar, writing, and oral communication for academic success.</td>
-                  <td>
-                    <button class="button edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="button delete"><i class="fa-solid fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>HIS-704</td>
-                  <td>Haitian & World History</td>
-                  <td>Prof. Jacques Louis</td>
-                  <td>Thu 13:00 – 14:45</td>
-                  <td>2</td>
-                  <td>Exploration of Haiti’s independence, revolutions, and global historical events.</td>
-                  <td>
-                    <button class="button edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="button delete"><i class="fa-solid fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>ICT-705</td>
-                  <td>Introduction to Informatics</td>
-                  <td>Prof. Rita Chen</td>
-                  <td>Fri 09:00 – 10:45</td>
-                  <td>3</td>
-                  <td>Basic computer operations, coding logic, and responsible digital citizenship.</td>
-                  <td>
-                    <button class="button edit"><i class="fa-solid fa-pen"></i></button>
-                    <button class="button delete"><i class="fa-solid fa-trash"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- 7e: Schedule (with breaks / flag) -->
-          <div class="classes-content-info-container schedule-container" data-tab="3">
 <?php
-$result = mysqli_query(
-  $connect,
-  "SELECT 
-     d.day        AS day_name,
-     t.time_id    AS time_id,
-     t.start_time AS start_time,
-     t.end_time   AS end_time,
-     c.course_name AS course_name
-   FROM days d
-   CROSS JOIN time_slots t
-   LEFT JOIN schedule s
-     ON s.day_id  = d.day_id
-    AND s.time_id = t.time_id
-   LEFT JOIN classes cl
-     ON cl.class_id = s.class_id
-    AND cl.class_name = '7e'
-   LEFT JOIN courses c
-     ON c.course_id = s.course_id
-   ORDER BY t.start_time, d.day_id"
-);
+$result = mysqli_query($connect, "
+  SELECT 
+    c.course_id,
+    c.course_code,
+    c.course_name,
+    CONCAT(t.last_name, ' ', t.first_name) AS teacher_fullname,
+    c.coefficient,
+    c.description,
+    cl.class_name
+  FROM courses c
+  INNER JOIN teachers t 
+    ON c.teacher_id = t.teacher_id
+  INNER JOIN classes cl 
+    ON c.class_id = cl.class_id
+  ORDER BY c.course_id ASC
+");
 
-$days       = [];
-$timeLabels = [];
-$timeMeta   = [];
-$map        = [];
 
-if ($result) {
-  while ($r = mysqli_fetch_assoc($result)) {
-    $day    = $r['day_name'];
-    $timeId = $r['time_id'];
+  while ($row = mysqli_fetch_assoc($result)): ?>
+    <tr>
+      <td><?= h($row['course_code'] ?? '') ?></td>
+      <td><?= h($row['course_name'] ?? '') ?></td>
+      <td><?= h($row['teacher_fullname'] ?? '') ?></td>
+      <td><?= h($row['coefficient'] ?? '') ?></td>
+      <td><?= h($row['description'] ?? '') ?></td>
+      <td>
+        <button class="button edit">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button class="button delete">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+<?php
+  endwhile;
+ ?>
+    
 
-    $startShort = substr($r['start_time'], 0, 5);
-    $endShort   = substr($r['end_time'],   0, 5);
-    $label      = $startShort . ' - ' . $endShort;
+</tbody>
 
-    if (!in_array($day, $days, true)) {
-      $days[] = $day;
-    }
+            </table>
 
-    if (!isset($timeLabels[$timeId])) {
-      $timeLabels[$timeId] = $label;
-      $timeMeta[$timeId]   = [
-        'start' => $startShort,
-        'end'   => $endShort,
-      ];
-    }
+                      </div>
+                </div>
+             
 
-    if (!empty($r['course_name'])) {
-      $map[$timeId][$day] = $r['course_name'];
-    }
-  }
-}
-?>
+           <!-- 7e: Schedule (with breaks / flag) -->
+          <div class="classes-content-info-container schedule-container" data-tab="3">
+            <?php
+            $result = mysqli_query(
+              $connect,
+              "SELECT 
+                d.day        AS day_name,
+                t.time_id    AS time_id,
+                t.start_time AS start_time,
+                t.end_time   AS end_time,
+                c.course_name AS course_name
+              FROM days d
+              CROSS JOIN time_slots t
+              LEFT JOIN schedule s
+                ON s.day_id  = d.day_id
+                AND s.time_id = t.time_id
+              LEFT JOIN classes cl
+                ON cl.class_id = s.class_id
+                AND cl.class_name = '7e'
+              LEFT JOIN courses c
+                ON c.course_id = s.course_id
+              ORDER BY t.start_time, d.day_id"
+            );
+
+            $days       = [];
+            $timeLabels = [];
+            $timeMeta   = [];
+            $map        = [];
+
+            if ($result) {
+              while ($r = mysqli_fetch_assoc($result)) {
+                $day    = $r['day_name'];
+                $timeId = $r['time_id'];
+
+                $startShort = substr($r['start_time'], 0, 5);
+                $endShort   = substr($r['end_time'],   0, 5);
+                $label      = $startShort . ' - ' . $endShort;
+
+                if (!in_array($day, $days, true)) {
+                  $days[] = $day;
+                }
+
+                if (!isset($timeLabels[$timeId])) {
+                  $timeLabels[$timeId] = $label;
+                  $timeMeta[$timeId]   = [
+                    'start' => $startShort,
+                    'end'   => $endShort,
+                  ];
+                }
+
+                if (!empty($r['course_name'])) {
+                  $map[$timeId][$day] = $r['course_name'];
+                }
+              }
+            }
+            ?>
             <table>
               <thead>
                 <tr>
