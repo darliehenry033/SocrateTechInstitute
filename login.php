@@ -1,7 +1,9 @@
 <?php
+session_start();
 include 'database.php';
 include 'partials/functions.php';
 include 'partials/linkheader.php';
+
 
 /* 
 if(is_user_logged_in()){
@@ -87,7 +89,7 @@ if(is_user_logged_in()){
             <span class="social-icon"><i class="fab fa-github"></i></span>
             <span class="social-icon"><i class="fas fa-link"></i></span>
           </div>          
-            <button class="contact button button-register" type="submit">Login</button>  
+            <button class="contact button button-register" type="submit" style="color:white !important;">Login</button>  
         </form>
       </div>
     </div>

@@ -15,27 +15,35 @@ closeIcon.addEventListener('click', ()=>{
 });
 /*Tab UI */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.tabs-buttons');
-  const contents = document.querySelectorAll('.tabs-content');
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', () => {
-      const tab = buttons[i].dataset.tab;
+document.addEventListener("DOMContentLoaded", () => {
+  const tabButtons = document.querySelectorAll(".tabs-buttons");
+  const tabContents = document.querySelectorAll(".tabs-content");
 
-      for (let j = 0; j < buttons.length; j++) {
-        buttons[j].classList.remove('btn-active');
-        contents[j].classList.remove('tabs-content-active');
-      }
-      buttons[i].classList.add('btn-active');
-      document.querySelector(`.tabs-content[data-tab="${tab}"]`)
-              .classList.add('tabs-content-active');
+  if (!tabButtons.length || !tabContents.length) return;
+
+  // reset all
+  tabButtons.forEach(btn => btn.classList.remove("btn-active"));
+  tabContents.forEach(c => c.classList.remove("tabs-content-active"));
+
+  // activate first tab by default
+  tabButtons[0].classList.add("btn-active");
+  tabContents[0].classList.add("tabs-content-active");
+
+  // click events
+  tabButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const currentTab = button.dataset.tab;
+
+      tabButtons.forEach(btn => btn.classList.remove("btn-active"));
+      tabContents.forEach(content => content.classList.remove("tabs-content-active"));
+
+      button.classList.add("btn-active");
+      const activeContent = document.querySelector(`.tabs-content[data-tab="${currentTab}"]`);
+      if (activeContent) activeContent.classList.add("tabs-content-active");
     });
-  }
-  if (buttons.length && contents.length) {
-    buttons[0].classList.add('btn-active');
-    contents[0].classList.add('tabs-content-active');
-  }
+  });
 });
+
 
 
 
@@ -180,6 +188,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   dashboardButtons[0].classList.add('dashboards-btn-active');
   dashboardContents[0].classList.add('dashboards-content-active');
   });
+
+
+//Admin related JS
+
+
+
+
+
 
 
 

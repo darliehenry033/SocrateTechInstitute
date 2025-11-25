@@ -41,7 +41,7 @@ $error = '';
               <p class="subtitle1"><span>L’éducation classique</span> et <span>l’innovation au service</span> d’une Haïti nouvelle.</p>
               <p class="subtitle2">Une école secondaire <span>moderne</span>  qui forme des jeunes citoyens responsables, capables d’ <span>intervenir</span>, de <span>créer</span>, d’ <span>innover</span>  et de <span>comprendre</span> leur pays.</p>
              <div class="hero-button-wrapper">
-               <button class="button postuler">Postuler</button>
+              <a href="application.html"><button class="button postuler" type="submit">Postuler</button></a>
                <button class="button explorer">Explorer</button>
                
              </div>
@@ -55,15 +55,16 @@ $error = '';
 
 
     <main>
+ 
       <section class="explore-tab-ui">
         <h1>La Vie sur le Campus</h1>
         <p>Découvrez les différents espaces, activités et services offerts à nos élèves au sein de l’Institut Socrate Tech.</p>
-      
+    
         <div class="tabs">
-          <button class="tabs-buttons" data-tab="1">Infrastructures</button>
+          <button class="tabs-buttons btn-active" data-tab="1">Infrastructures</button>
           <button class="tabs-buttons" data-tab="2">Laboratoires</button>
           <button class="tabs-buttons" data-tab="3">Espaces Sportifs</button>
-          <button class="tabs-buttons" data-tab="4">Espace Bien-Être / Gym & Détente</button>
+          <button class="tabs-buttons" data-tab="4">Gym & Détente</button>
         </div>
         
         <div class="tabs-content campusflex-container" data-tab="1">
@@ -95,6 +96,7 @@ $error = '';
           <img src="images/tabUIImages/building/library2.jpg" alt="">
         </div>
       </section>
+     
       <section class="why-choose-us">
         <h1 class="choose-title">Pourquoi Nous Choisir</h1>
       
@@ -383,6 +385,6 @@ $error = '';
 
   
        
-       
-    
+   
+<script src="script.js"></script>
 <?php include 'partials/footer.php'?>
