@@ -1,56 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Enregistrement</title>
-  <link rel="stylesheet" href="design.css">
+<?php 
 
-  <link rel="stylesheet" href="design.css">
+session_start();
+include 'database.php';
+include 'partials/functions.php';
+include 'partials/header.php';
+?>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<?php 
+include 'partials/applicationheader.php';
+?>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
+<?php 
+$last_name = $first_name = $date_of_birth = $sex = $birthplace = $phone = $email = $address = "";
+?>
+lastclass
+lastSchool
+modernCourse
+<?php 
+if($_SERVER['REQUEST_METHOD'] === 'POST')
+$last_name = trim(filter_var(strip_tags($_POST['lastName']), FILTER_SANITIZE_STRING));
+$first_name = trim(filter_var(strip_tags($_POST['firstName']), FILTER_SANITIZE_STRING));
+$date_of_birth = trim(strip_tags($_POST['dateOfBirth']));
+$sex = strip_tags($_POST['sex']);
+$birthplace = trim(strip_tags($_POST['birthplace']));
+$phone = trim(filter_var(strip_tags($_POST['phone']),FILTER_SANITIZE_STRING));
+$email = trim(filter_var(strip_tags($_POST['email']),FILTER_SANITIZE_EMAIL));
+$address =trim(filter_var( strip_tags($_POST['address']), FILTER_SANITIZE_STRING));
+$last_class = trim(strip_tags($_POST['lastclass']));
+$last_school = trim(filter_var(strip_tags($_POST['lastSchool']), FILTER_VALIDATE_STRING));
+$modern_course = trim(strip_tags($_POST['lastSchool']));
 
-    <header class="header-container application-container">
-        <div class="hamburger-menu-container">
-          <div class="hamburger-menu">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-          <nav class="application-nav-control">
-            <div class="hamburger-menu close-x">
-              <div class="line1"></div>
-              <div class="line2"></div>
-              <div class="line3"></div>
-            </div>
-             <div class="nav-left">
-              <a href="index.html"><img src="images/logowhite.png" alt=""></a>
-              </div>
-              <div class="nav-center">
-              <a class="accueil">Accueil</a>
-              <a class="filières">Classes</a>
-              <a class="filières">À Propos</a>
-              <a class="inscription">Inscription</a>
-              <a class="vieScolaire">Vie Scolaire</a>
-               </div>
-              
-             <div class="nav-right">
-              <button class="contact button">Enregistrer</button>
-              <button class="connexion button">Connexion</button>
-             
-             </div>
-          </nav>
-        <section class="application">
-        <p>Postuler à Socrate Tech Institute</p>      
-        </section>
-      </header>
+
+
+if(empty($last_name) || empty($first_name) || empty($date_of_birth) ||empty($phone) || empty($email) || empty($address) || empty($last_class) || empty($last_school) || empty($modern_course)){
+  echo "The fields cannot be empty";
+}else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+  echo "incorrect email Format";
+} else if(!preg_match('/^\+?[0-9]{8,15}$/', $phone)){
+  echo "Invalid Phone Number Format";
+}else{
+
+  //Put the SQL here / final validation before redirect to the quiz.php
+
+
+
+
+}
+
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <main>
         <div class="application-notice-container"> 
@@ -59,7 +76,7 @@
           </div>
         </div>
           <div class="application-form-container">
-            <form action="">
+            <form action="" method="POST" enctype="multipart/form-data">
               <div class="personal-information personal-information-grid-part-1">
                
                 
@@ -71,8 +88,11 @@
                 </div>
                 
           
-                <label for="fullname">Nom Complet</label>
-                <input type="text" class="fullname" name="fullname" required>
+                <label for="lastname">Nom de Famille</label>
+                <input type="text" class="fullname" name="lastName" required>
+
+                <label for="firstname">Prénom</label>
+                <input type="text" class="fullname" name="firstName" required>
           
                 <label for="dateOfBirth">Date de Naissance</label>
                 <input type="date" class="dateOfBirth" name="dateOfBirth" required>
@@ -86,7 +106,7 @@
           
                 <label for="birthplace">Lieu de Naissance (Ville en Haïti)</label>
                 <select id="birthplace" name="birthplace" required>
-                  <option value="">-- Sélectionnez une ville --</option>
+                  <option value="">Sélectionnez une ville</option>
                   <option value=""><script>loadHaitiCities();</script></option>
                 </select>
                 <label for="phoneNumber">Téléphone</label>
@@ -99,7 +119,7 @@
                 <input type="text" class="address" name="address">
   
               </div>
-  
+              
               <div class="personal-information-grid-part-2">
                 <div class="academic-information">
                   <legend>Informations Académiques</legend>
@@ -189,66 +209,8 @@
              
             </form>
           </div>
-
-
-        <section class="footer-wrapper">
-          <footer class="footer">
-            <section class="footer-top">
-              <h1>Connectés pour Inspirer et Éduquer</h1>
-                <div class="logo-container">
-                  <a href="index.html"><img src="images/logowhite.png" alt=""></a>
-                </div>
-                <div class="social-media-container">
-                  <a href=""><i class="fa-brands fa-facebook"></i></a>
-                  <a href=""><i class="fa-brands fa-square-instagram"></i></a>
-                  <a href=""><i class="fa-solid fa-envelope"></i></a>
-                  <a href=""><i class="fa-solid fa-phone"></i></a>
-                  <a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
-                  <a href=""><i class="fa-brands fa-linkedin"></i></a>
-                </div>
-            </section>
-            <section class="footer-body">
-              <div class="links-container">
-                <h2>Accueil</h2>
-                <a href="">Présentation</a>
-                <a href="">Pourquoi SocrateTech ?</a>
-                <a href="">Témoignages</a>
-                <a href="">Nos Partenaires</a>
-              </div>
-              <div class="links-container">
-                <h2>Classes & Cours</h2>
-                <a href="">Filières Académiques</a>
-                <a href="">Cours Modernes</a>
-                <a href="">Agriculture & IA</a>
-                <a href="">Cours d’Été / Club</a>
-              
-              </div>
-              <div class="links-container">
-                <h2>Inscription</h2>
-                <a href="">Comment s’inscrire ?</a>
-                <a href="">Examens d’entrée</a>
-                <a href="">Documents requis</a>
-                <a href="">Aide financière</a>
-              </div>
-              <div class="links-container">
-                <h2>Contact</h2>
-                <div class="links-container-contact"> <h3>Adresse :</h3>
-                  <a href="">Carrefour, Haïti</a></div>
-                <div class="links-container-contact"><h3> Téléphone :</h3>
-                  <a href="">+509 45 67 89 00</a></div>
-                <div class="links-container-contact"><h3>Email :</h3>
-                  <a href="">info@socratetech.edu.ht</a></div>
-                <div class="links-container-contact"> <h3>Heures :</h3>
-                  <a href="">Lun-Ven, 8h - 16h</a></div>
-                   
-              </div>
-            </section>
-            <section class="footer-end">
-              <p><i class="fa-regular fa-copyright"></i> 2025 SocrateTech Institute. Tous droits réservés.</p>
-              <p>Développé avec passion pour propulser la nouvelle génération haïtienne vers l'excellence éducative et technologique.</p>
-            </section>
-          </footer>
-        </section>
+        <?php include 'partials/customfooter.php';?>
+           
 
 
       </main>

@@ -2901,6 +2901,32 @@ font-weight: bold;
   color: #fff;
 }
 
+/*Custom Footer*/
+.custom-footer{
+  display: flex;
+  justify-content: center;
+  background-color: #071426;
+  height: 60px;
+  border-top-left-radius: 20px;
+  border-top-right-radius:20px;
+  align-items: center;
+  font-style: italic;
+  
+}
+.custom-footer p{
+  color: white;
+  font-weight: bold;
+  font-size: var(--font-size-h3);
+  text-decoration:underline;
+  transition: color 0.5s ease-in-out;
+
+}
+.custom-footer p:hover,.custom-footer p:active{
+  cursor: pointer;
+  color:#0d6efd;
+}
+
+
    
 
   
