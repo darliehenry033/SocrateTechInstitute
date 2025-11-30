@@ -1,9 +1,10 @@
 <?php 
 
 session_start();
-include 'database.php';
-include 'partials/functions.php';
-include 'partials/header.php';
+require_once __DIR__ . '/../database/database.php';
+require_once __DIR__ . '/../partials/functions.php';
+require_once __DIR__ . '/../partials/header.php';
+require_once __DIR__ . '/../partials/applicationheader.php';
 ?>
 
 <?php 
@@ -13,9 +14,7 @@ include 'partials/applicationheader.php';
 <?php 
 $last_name = $first_name = $date_of_birth = $sex = $birthplace = $phone = $email = $address = "";
 ?>
-lastclass
-lastSchool
-modernCourse
+
 <?php 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 $last_name = trim(filter_var(strip_tags($_POST['lastName']), FILTER_SANITIZE_STRING));
@@ -30,8 +29,6 @@ $last_class = trim(strip_tags($_POST['lastclass']));
 $last_school = trim(filter_var(strip_tags($_POST['lastSchool']), FILTER_VALIDATE_STRING));
 $modern_course = trim(strip_tags($_POST['lastSchool']));
 
-
-
 if(empty($last_name) || empty($first_name) || empty($date_of_birth) ||empty($phone) || empty($email) || empty($address) || empty($last_class) || empty($last_school) || empty($modern_course)){
   echo "The fields cannot be empty";
 }else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
@@ -40,7 +37,7 @@ if(empty($last_name) || empty($first_name) || empty($date_of_birth) ||empty($pho
   echo "Invalid Phone Number Format";
 }else{
 
-  //Put the SQL here / final validation before redirect to the quiz.php
+ 
 
 
 
@@ -224,7 +221,7 @@ if(empty($last_name) || empty($first_name) || empty($date_of_birth) ||empty($pho
   
 
   
-<script src="script.js"></script>
+<script src="js/script.js"></script>
  
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

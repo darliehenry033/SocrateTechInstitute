@@ -1,6 +1,5 @@
 <?php 
-include 'partials/header.php';
-include 'database.php';
+require_once __DIR__ . '/header.php';
 ?>
 
 <header class="header-container">
@@ -22,7 +21,7 @@ include 'database.php';
         </div>
 
         <div class="nav-center">
-            <a class="accueil" href="index.php">Accueil</a>
+            <a class="accueil" href="pages/index.php">Accueil</a>
             <a class="filières">Classes</a>
             <a class="filières">À Propos</a>
             <a class="inscription">Inscription</a>

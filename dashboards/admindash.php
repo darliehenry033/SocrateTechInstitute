@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once 'database.php';
-require_once 'partials/functions.php';
-require_once 'partials/header.php';
+require_once __DIR__ . '/../database/database.php';
+require_once __DIR__ . '/../partials/header.php';
+
 
 /* --------------------------FLAGS & MESSAGES--------------------------------*/
 $courseAdded     = false;
@@ -683,10 +683,10 @@ $sqlCounts = "
 $counts = mysqli_fetch_assoc(mysqli_query($connect, $sqlCounts));
 
 $cards = [
-  ['key' => 'teachers', 'title' => 'Teachers',   'img' => 'images/dashboardImage/teachers.png'],
-  ['key' => 'admins',   'title' => 'S. Members', 'img' => 'images/dashboardImage/staff.png'],
-  ['key' => 'students', 'title' => 'Students',   'img' => 'images/dashboardImage/students.png'],
-  ['key' => 'parents',  'title' => 'Parents',    'img' => 'images/dashboardImage/family.png'],
+  ['key' => 'teachers', 'title' => 'Teachers',   'img' => '../images/dashboardImage/teachers.png'],
+  ['key' => 'admins',   'title' => 'S. Members', 'img' => '../images/dashboardImage/staff.png'],
+  ['key' => 'students', 'title' => 'Students',   'img' => '../images/dashboardImage/students.png'],
+  ['key' => 'parents',  'title' => 'Parents',    'img' => '../images/dashboardImage/family.png'],
 ];
 
 $userTabs = [
@@ -951,7 +951,7 @@ $teachersList = getAllRows($connect, "
               </div>
               <div class="tutor-info">
                 <div class="tutor-info-left">
-                  <img src="images/0016_3.JPG" alt="">
+                  <img src="../images/0016_3.JPG" alt="">
                 </div>
                 <div class="tutor-info-right">
                   <h2>Prof. JEAN W. LEYDER</h2>
@@ -1518,9 +1518,9 @@ $teachersList = getAllRows($connect, "
 
 
 
-<script src="script2.js"></script>
+<script src="../js/script2.js"></script>
 
-<script src="script.js"></script>
+<script src="../js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 </body>

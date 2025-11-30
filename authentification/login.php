@@ -1,8 +1,8 @@
 <?php
 session_start();
-include 'database.php';
-include 'partials/functions.php';
-include 'partials/linkheader.php';
+require_once __DIR__ . '/../database/database.php';
+require_once __DIR__ . '/../partials/functions.php';
+require_once __DIR__ . '/../partials/linkheader.php';
 
 
 /* 

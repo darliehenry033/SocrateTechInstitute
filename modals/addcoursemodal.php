@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'database.php';
+require_once 'database/database.php';
 require_once 'partials/functions.php';
 require_once 'partials/header.php';
 

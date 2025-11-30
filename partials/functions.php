@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+
 
 function is_user_logged_in(){
     return isset($_SESSION['username']) && $_SESSION['username'] === true;
