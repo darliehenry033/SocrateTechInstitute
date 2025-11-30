@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Chatbot</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="chat-bubble">
+     <img src="../images/bot.png" alt="Chatbot" id="bot-icon" onclick="">
+  </div>
+
+  <div id="chat-window">
+    <div id="top-chat-window"> 
+      <img src="../images/bot.png" alt="Chatbot" id="bot-icon-top">
+      <h2>AI assistant</h2>
+      
+    </div>
+   <div id="faq-buttons">
+  <button class="faq-btn" data-category="account">General Account & Access</button>
+  <button class="faq-btn" data-category="courses">Courses & Enrollment</button>
+  <button class="faq-btn" data-category="fees">Fees & Payments</button>
+  <button class="faq-btn" data-category="exams">Exams & Assessments</button>
+  <button class="faq-btn" data-category="support">Communication & Support</button>
+   </div>
+   <div id="sub-questions"></div>
+
+    <div id="chat-messages"><div class="sender-message"></div>
+  </div>
+    <div id="chat-input">
+      <input type="text" id="user-input" placeholder="Ask me anything..." />
+      <button id="send-btn">Send</button>
+    
+    </div>
+    
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.fog.min.js"></script>
+
+
+  <script src ="script.js"></script>
+<script src="server.js"> </script>
+</body>
+</html>
