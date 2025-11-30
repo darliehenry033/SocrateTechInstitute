@@ -67,9 +67,11 @@
     align-items: center;
     padding: 0 10%;
     height: 70px;
-    position: fixed;
+    position: fixed !important;
+    top: 0;
     background-color: rgb(10, 10, 39);
     width: 100%;
+    
 
   }
   .nav-left {
@@ -1398,7 +1400,7 @@ font-weight: bold;
     border-bottom-right-radius: 20%;
     background: 
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(131, 129, 129, 0.6)),
-      url('STIapply.png');
+      url('../images/STIapply.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2900,6 +2902,32 @@ font-weight: bold;
   background: #0e1223;
   color: #fff;
 }
+
+/*Custom Footer*/
+.custom-footer{
+  display: flex;
+  justify-content: center;
+  background-color: #071426;
+  height: 60px;
+  border-top-left-radius: 20px;
+  border-top-right-radius:20px;
+  align-items: center;
+  font-style: italic;
+  
+}
+.custom-footer p{
+  color: white;
+  font-weight: bold;
+  font-size: var(--font-size-h3);
+  text-decoration:underline;
+  transition: color 0.5s ease-in-out;
+
+}
+.custom-footer p:hover,.custom-footer p:active{
+  cursor: pointer;
+  color:#0d6efd;
+}
+
 
    
 

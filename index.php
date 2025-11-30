@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'database.php';
+include 'database/database.php';
 include 'partials/functions.php'; 
 include 'partials/header.php';
 
@@ -386,5 +386,5 @@ $error = '';
   
        
    
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 <?php include 'partials/footer.php'?>
