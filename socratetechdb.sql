@@ -1178,7 +1178,7 @@ FOREIGN KEY (application_id) REFERENCES application(application_id)
 
 );
 
-CREATE TABLE questin_answers(
+CREATE TABLE question_answers(
 question_id INT PRIMARY KEY AUTO_INCREMENT,
 question_category varchar(150) not null,
 class_id INT,
@@ -1189,7 +1189,13 @@ optionC varchar(255),
 optionD varchar(255),
 correct_answer char(10)
 );
+SELECT DATABASE();
+SHOW TABLES;
 
+
+SELECT DATABASE();  
+
+USE socrate_tech_institute;
 
 
 
