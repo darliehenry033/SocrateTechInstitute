@@ -1400,7 +1400,7 @@ font-weight: bold;
     border-bottom-right-radius: 20%;
     background: 
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(131, 129, 129, 0.6)),
-      url('STIapply.png');
+      url('../images/STIapply.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

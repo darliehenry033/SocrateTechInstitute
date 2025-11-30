@@ -1,55 +1,42 @@
-<?php 
-
-session_start();
+<?php
 require_once __DIR__ . '/../database/database.php';
-require_once __DIR__ . '/../partials/functions.php';
 require_once __DIR__ . '/../partials/header.php';
 require_once __DIR__ . '/../partials/applicationheader.php';
-?>
 
-<?php 
-include 'partials/applicationheader.php';
-?>
+$last_name = $first_name = $date_of_birth = $sex = $birthplace =
+$phone = $email = $address = $last_class = $last_school = $modern_course = "";
+$error = "";
 
-<?php 
-$last_name = $first_name = $date_of_birth = $sex = $birthplace = $phone = $email = $address = "";
-?>
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $last_name     = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastName']    ?? '')));
+  $first_name    = mysqli_real_escape_string($connect, trim(strip_tags($_POST['firstName']   ?? '')));
+  $date_of_birth = trim(strip_tags($_POST['dateOfBirth'] ?? ''));
+  $sex           = mysqli_real_escape_string($connect, trim(strip_tags($_POST['sexe']        ?? '')));
+  $birthplace    = mysqli_real_escape_string($connect, trim(strip_tags($_POST['birthplace']  ?? '')));
+  $phone         = mysqli_real_escape_string($connect, trim(strip_tags($_POST['phone']       ?? '')));
+  $email         = mysqli_real_escape_string($connect, trim(filter_var($_POST['email']       ?? '', FILTER_SANITIZE_EMAIL)));
+  $address       = mysqli_real_escape_string($connect, trim(strip_tags($_POST['address']     ?? '')));
+  $last_class    = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastclass']   ?? '')));
+  $last_school   = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastSchool']  ?? '')));
+  $modern_course = mysqli_real_escape_string($connect, trim(strip_tags($_POST['modernCourse']?? '')));
 
-<?php 
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-$last_name = trim(filter_var(strip_tags($_POST['lastName']), FILTER_SANITIZE_STRING));
-$first_name = trim(filter_var(strip_tags($_POST['firstName']), FILTER_SANITIZE_STRING));
-$date_of_birth = trim(strip_tags($_POST['dateOfBirth']));
-$sex = strip_tags($_POST['sex']);
-$birthplace = trim(strip_tags($_POST['birthplace']));
-$phone = trim(filter_var(strip_tags($_POST['phone']),FILTER_SANITIZE_STRING));
-$email = trim(filter_var(strip_tags($_POST['email']),FILTER_SANITIZE_EMAIL));
-$address =trim(filter_var( strip_tags($_POST['address']), FILTER_SANITIZE_STRING));
-$last_class = trim(strip_tags($_POST['lastclass']));
-$last_school = trim(filter_var(strip_tags($_POST['lastSchool']), FILTER_VALIDATE_STRING));
-$modern_course = trim(strip_tags($_POST['lastSchool']));
-
-if(empty($last_name) || empty($first_name) || empty($date_of_birth) ||empty($phone) || empty($email) || empty($address) || empty($last_class) || empty($last_school) || empty($modern_course)){
-  echo "The fields cannot be empty";
-}else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-  echo "incorrect email Format";
-} else if(!preg_match('/^\+?[0-9]{8,15}$/', $phone)){
-  echo "Invalid Phone Number Format";
-}else{
-
- 
-
-
-
-
+  if (
+    empty($last_name)    || empty($first_name)   || empty($date_of_birth) ||
+    empty($sex)          || empty($birthplace)   || empty($phone)        ||
+    empty($email)        || empty($address)      || empty($last_class)   ||
+    empty($last_school)  || empty($modern_course)
+  ) {
+    echo "The fields cannot be empty";
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Incorrect email format";
+  } elseif (!preg_match('/^\+?[0-9]{8,15}$/', $phone)) {
+    echo "Invalid phone number format";
+  } else {
+    
+  }
 }
-
-
-
-
-
-
 ?>
+
 
 
 
@@ -206,7 +193,8 @@ if(empty($last_name) || empty($first_name) || empty($date_of_birth) ||empty($pho
              
             </form>
           </div>
-        <?php include 'partials/customfooter.php';?>
+          <?php include __DIR__ . '/../partials/customfooter.php'; ?>
+
            
 
 

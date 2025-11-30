@@ -1,8 +1,8 @@
 
 <?php 
-include 'database/database.php';
+include '../database/database.php';
 
-include 'partials/header.php';
+include '../partials/header.php';
 ?>
 
 
@@ -10,4 +10,4 @@ include 'partials/header.php';
 <p><i class="fa-regular fa-copyright"></i> 2025 SocrateTech Institute. Tous droits réservés.</p>
 </section>
 
-<?php include 'partials/footer.php' ?>
+
