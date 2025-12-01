@@ -2976,23 +2976,19 @@ font-weight: bold;
   cursor: pointer;
   transition: 0.2s ease;
 }
-
 .file-box:hover {
   background: #f1f1f1;
   border-color: #999;
 }
-
 .file-click-zone {
   display: flex;
   flex-direction: column;
   gap: 6px;
   cursor: pointer;
 }
-
 .file-title {
   font-weight: 600;
 }
-
 .file-name {
   font-style: italic;
   color: #444;
