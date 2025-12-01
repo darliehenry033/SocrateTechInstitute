@@ -7,7 +7,7 @@ $last_name = $first_name = $date_of_birth = $sex = $birthplace =
 $phone = $email = $address = $last_class = $last_school = $modern_course = "";
 $error = "";
 
-/* --------------------- LOAD CLASSES FOR SELECT --------------------- */
+/* --------LOAD CLASSES FOR SELECT -------- */
 $classesList = [];
 $classSql = "SELECT class_id, class_name FROM classes ORDER BY class_name";
 if ($res = mysqli_query($connect, $classSql)) {
@@ -17,9 +17,6 @@ if ($res = mysqli_query($connect, $classSql)) {
     mysqli_free_result($res);
 }
 
-/**
- * Generic upload handler for single or multiple files.
- */
 function handle_upload(
     string $fieldName,
     string $subDir,
@@ -35,7 +32,6 @@ function handle_upload(
     $files = $_FILES[$fieldName];
     $savedPaths = [];
 
-    // Normalize to arrays
     $names     = $multiple ? $files['name']     : [$files['name']];
     $tmpNames  = $multiple ? $files['tmp_name'] : [$files['tmp_name']];
     $sizes     = $multiple ? $files['size']     : [$files['size']];
@@ -98,7 +94,7 @@ function handle_upload(
     return $savedPaths;
 }
 
-/* ------------------------- HANDLE POST -------------------------- */
+/* ------------HANDLE POST ---------------*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
     $last_name     = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastName']    ?? '')));
@@ -113,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $last_school   = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastSchool']  ?? '')));
     $modern_course = mysqli_real_escape_string($connect, trim(strip_tags($_POST['modernCourse']?? '')));
 
-    // ---------- VALIDATION ----------
+    // --VALIDATION--------
     if (
         empty($last_name)    || empty($first_name)   || empty($date_of_birth) ||
         empty($sex)          || empty($birthplace)   || empty($phone)        ||
@@ -127,10 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Invalid phone number format";
     }
 
-    // If no validation error, handle uploads + DB
+    // If no validation error, handle uploads and DB
     if ($error === "") {
         try {
-            // ---------- FILE UPLOADS ----------
             // One profile photo
             $photoPaths = handle_upload(
                 'photo_profile',
@@ -162,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $birthActPath   = $birthActPaths[0] ?? null;
             $transcriptsStr = $transcriptPaths ? implode(';', $transcriptPaths) : null;
 
-            // ---------- INSERT INTO DB ----------
+            // INSERT INTO DB 
             $sql = "INSERT INTO application 
                     (last_name, first_name, date_of_birth, sex, birthplace,
                      phone, email, address, last_class, last_school, modern_courses,
@@ -200,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $applicationId = mysqli_insert_id($connect);
             mysqli_stmt_close($stmt);
 
-            // ---------- GENERATE APPLICATION CODE ----------
+            // GENERATE APPLICATION CODE
             $offset          = 100; // APP-101, 102, ...
             $codeNumber      = $applicationId + $offset;
             $applicationCode = 'APP-' . $codeNumber;
@@ -211,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_execute($updateStmt);
             mysqli_stmt_close($updateStmt);
 
-            // ---------- REDIRECT TO QUIZ ----------
+            //  REDIRECT TO QUIZ
             header("Location: quiz.php?application_id=" . $applicationId);
             exit;
 
@@ -239,139 +234,156 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
     <form action="" method="POST" enctype="multipart/form-data">
-    
-      <div class="personal-information personal-information-grid-part-1">
-     
-        <div class="photo-upload">
-          <label for="photoInput" class="photo-frame" id="photoFrame">
-            <span id="photoText">Ajouter Photo</span>
-            <img id="photoPreview" alt="Prévisualisation" style="display:none; max-width:100%; height:auto; border-radius:10px;">
-          </label>
-          <input type="file" id="photoInput" class="photo-profile" 
-                 name="photo_profile" accept="image/*" hidden>
-        </div>
+  <div class="personal-information personal-information-grid-part-1">
+    <div class="photo-upload">
+      <label for="photoInput" class="photo-frame" id="photoFrame">
+        <span id="photoText">Ajouter Photo</span>
+        <img id="photoPreview" alt="Prévisualisation"
+             style="display:none; max-width:100%; height:auto; border-radius:10px;">
+      </label>
+      <input type="file" id="photoInput" class="photo-profile"
+             name="photo_profile" accept="image/*" hidden>
+    </div>
 
-        <label for="lastname">Nom de Famille</label>
-        <input type="text" class="fullname" name="lastName" required>
+    <label for="lastname">Nom de Famille</label>
+    <input type="text" class="fullname" name="lastName" required
+           value="<?= htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?>">
 
-        <label for="firstname">Prénom</label>
-        <input type="text" class="fullname" name="firstName" required>
+    <label for="firstname">Prénom</label>
+    <input type="text" class="fullname" name="firstName" required
+           value="<?= htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?>">
 
-        <label for="dateOfBirth">Date de Naissance</label>
-        <input type="date" class="dateOfBirth" name="dateOfBirth" required>
+    <label for="dateOfBirth">Date de Naissance</label>
+    <input type="date" class="dateOfBirth" name="dateOfBirth" required
+           value="<?= htmlspecialchars($date_of_birth, ENT_QUOTES, 'UTF-8'); ?>">
 
-        <label for="sexe">Sexe</label><br>
-        <input type="radio" id="homme" name="sexe" value="Homme" required>
-        <label for="homme">Homme</label>
+    <label for="sexe">Sexe</label><br>
+    <input type="radio" id="homme" name="sexe" value="Homme" required
+           <?= $sex === 'Homme' ? 'checked' : '' ?>>
+    <label for="homme">Homme</label>
 
-        <input type="radio" id="femme" name="sexe" value="Femme">
-        <label for="femme">Femme</label>
+    <input type="radio" id="femme" name="sexe" value="Femme"
+           <?= $sex === 'Femme' ? 'checked' : '' ?>>
+    <label for="femme">Femme</label>
 
-        <label for="birthplace">Lieu de Naissance (Ville en Haïti)</label>
-        <select id="birthplace" name="birthplace" required>
-          <option value="">Sélectionnez une ville</option>
-          <option value=""><script>loadHaitiCities();</script></option>
+    <label for="birthplace">Lieu de Naissance (Ville en Haïti)</label>
+    <select id="birthplace" name="birthplace" required>
+      <option value="">Sélectionnez une ville</option>
+      <!-- here you should eventually generate options in PHP
+           and set selected based on $birthplace -->
+      <option value=""><script>loadHaitiCities();</script></option>
+    </select>
+
+    <label for="phoneNumber">Téléphone</label>
+    <input type="phone" class="phone" name="phone"
+           value="<?= htmlspecialchars($phone, ENT_QUOTES, 'UTF-8'); ?>">
+
+    <label for="email">Email</label>
+    <input type="email" class="email" name="email"
+           value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8'); ?>">
+
+    <label for="address">Adresse Actuelle</label>
+    <input type="text" class="address" name="address"
+           value="<?= htmlspecialchars($address, ENT_QUOTES, 'UTF-8'); ?>">
+  </div>
+  
+  <div class="personal-information-grid-part-2">
+    <div class="academic-information">
+      <legend>Informations Académiques</legend>
+      <div class="last-grade-completed">
+        <label for="lastclass">Dernier niveau complété : </label>
+        <select name="lastclass" id="lastclass" required>
+          <option value="">Select a class</option>
+          <?php foreach ($classesList as $cls): ?>
+            <?php $id = (int)$cls['class_id']; ?>
+            <option value="<?= $id; ?>"
+              <?= ($last_class == $id) ? 'selected' : '' ?>>
+              <?= htmlspecialchars($cls['class_name'], ENT_QUOTES, 'UTF-8'); ?>
+            </option>
+          <?php endforeach; ?>
         </select>
-
-        <label for="phoneNumber">Téléphone</label>
-        <input type="phone" class="phone" name="phone">
-
-        <label for="email">Email</label>
-        <input type="email" class="email" name="email">
-
-        <label for="address">Adresse Actuelle</label>
-        <input type="text" class="address" name="address">
       </div>
       
-      <div class="personal-information-grid-part-2">
-        <div class="academic-information">
-          <legend>Informations Académiques</legend>
-          <div class="last-grade-completed">
-            <label for="lastclass">Dernier niveau complété : </label>
-            <select name="lastclass" id="lastclass" required>
-              <option value="">Select a class</option>
-              <?php foreach ($classesList as $cls): ?>
-                <option value="<?= (int)$cls['class_id']; ?>">
-                  <?= htmlspecialchars($cls['class_name'], ENT_QUOTES, 'UTF-8'); ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          
-          <div class="last-school-completed">
-            <label for="lastschool">Dernier établissement fréquenté</label>
-            <input type="text" name="lastSchool" class="lastSchool">
-          </div>
+      <div class="last-school-completed">
+        <label for="lastschool">Dernier établissement fréquenté</label>
+        <input type="text" name="lastSchool" class="lastSchool"
+               value="<?= htmlspecialchars($last_school, ENT_QUOTES, 'UTF-8'); ?>">
+      </div>
 
-          <label for="modernCourses">Intérêts pour les cours modernes :</label>
-          <div class="programming">
-            <input type="radio" name="modernCourse" id="programming" value="programmation" required>
-            <label for="programming">Programmation</label>
-          </div>
+      <label for="modernCourses">Intérêts pour les cours modernes :</label>
+      <div class="programming">
+        <input type="radio" name="modernCourse" id="programming"
+               value="programmation" required
+               <?= $modern_course === 'programmation' ? 'checked' : '' ?>>
+        <label for="programming">Programmation</label>
+      </div>
 
-          <div class="ai">
-            <input type="radio" name="modernCourse" id="AI" value="intelligence_artificielle">
-            <label for="AI">Intelligence Artificielle</label>
-          </div>
-      
-          <div class="cybersecurity">
-            <input type="radio" name="modernCourse" id="cybersecurity" value="cybersecurite">
-            <label for="cybersecurity">Cybersécurité</label>
-          </div>
+      <div class="ai">
+        <input type="radio" name="modernCourse" id="AI"
+               value="intelligence_artificielle"
+               <?= $modern_course === 'intelligence_artificielle' ? 'checked' : '' ?>>
+        <label for="AI">Intelligence Artificielle</label>
+      </div>
+  
+      <div class="cybersecurity">
+        <input type="radio" name="modernCourse" id="cybersecurity"
+               value="cybersecurite"
+               <?= $modern_course === 'cybersecurite' ? 'checked' : '' ?>>
+        <label for="cybersecurity">Cybersécurité</label>
+      </div>
 
-          <div class="agriculture">
-            <input type="radio" name="modernCourse" id="agriculture" value="agriculture">
-            <label for="agriculture">Agriculture</label>
-          </div> 
+      <div class="agriculture">
+        <input type="radio" name="modernCourse" id="agriculture"
+               value="agriculture"
+               <?= $modern_course === 'agriculture' ? 'checked' : '' ?>>
+        <label for="agriculture">Agriculture</label>
+      </div> 
 
-          <div class="first-aid">
-            <input type="radio" name="modernCourse" id="firstAid" value="premiers_soins">
-            <label for="firstAid">Premiers Soins</label>
-          </div>
+      <div class="first-aid">
+        <input type="radio" name="modernCourse" id="firstAid"
+               value="premiers_soins"
+               <?= $modern_course === 'premiers_soins' ? 'checked' : '' ?>>
+        <label for="firstAid">Premiers Soins</label>
+      </div>
+    </div>
+
+    <div class="requiredDocuments">
+      <legend>Documents Requis</legend>
+      <section class="required-documents-flex-container">
+        <div class="birthAct file-box" id="birthActBox">
+          <label for="birthActInput">
+            <span>Acte de Naissance ou Extrait des Archives</span>
+            <span class="file-name">Aucun fichier choisi</span>
+          </label>
+          <input type="file" id="birthActInput" class="birthAct-doc"
+                 name="birth_act" accept=".jpg,.jpeg,.png,.pdf" hidden>
         </div>
 
-        <div class="requiredDocuments">
-          <legend>Documents Requis</legend>
-        
-          <section class="required-documents-flex-container">
-          <div class="birthAct file-box" id="birthActBox">
-            <label for="birthActInput">
-              <span>Acte de Naissance ou Extrait des Archives</span>
-              <span class="file-name">Aucun fichier choisi</span>
-            </label>
-            <input type="file" id="birthActInput" class="birthAct-doc"
-                  name="birth_act" accept=".jpg,.jpeg,.png,.pdf" hidden>
-          </div>
-
-        
-          <div class="transcript file-box" id="transcriptsBox">
-               <label class="file-click-zone">
-                <span class="file-title">Relevés de notes</span>
-                <strong>(incluant toutes les classes précédentes et la dernière classe)</strong>
-                <span class="file-name">Aucun fichier choisi</span>
-              </label>
-          </div>
-
-      <input type="file" id="transcriptsInput" name="transcripts[]" multiple accept=".jpg,.jpeg,.png,.pdf" hidden>
+        <div class="transcript file-box" id="transcriptsBox">
+          <label class="file-click-zone">
+            <span class="file-title">Relevés de notes</span>
+            <strong>(incluant toutes les classes précédentes et la dernière classe)</strong>
+            <span class="file-name">Aucun fichier choisi</span>
+          </label>
+          <input type="file" id="transcriptsInput" name="transcripts[]" multiple
+                 accept=".jpg,.jpeg,.png,.pdf" hidden>
+        </div>
+      </section>
     </div>
 
     <div class="confirmValidation">
-          <div class="validation-input">
-            <input type="checkbox" id="validation" name="validation">
-            <label for="textConfirm">Je Certifie que toutes les informations sont exactes et que les documents téléchargés sont authentiques.</label>
-          </div>
-          <div class="button-container">
-            <button id="submitRequest" class="button submit-button">Soumettre ma candidature</button>
-          </div>
-        </div>
+      <div class="validation-input">
+        <input type="checkbox" id="validation" name="validation"
+               <?= !empty($_POST['validation']) ? 'checked' : '' ?>>
+        <label for="textConfirm">Je Certifie que toutes les informations sont exactes et que les documents téléchargés sont authentiques.</label>
       </div>
+      <div class="button-container">
+        <button id="submitRequest" class="button submit-button">Soumettre ma candidature</button>
+      </div>
+    </div>
+  </div>
+</form>
 
-
-          </section>
-        </div>
-        
-        
-    </form>
   </div>
 
   <?php include __DIR__ . '/../partials/customfooter.php'; ?>
@@ -380,7 +392,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!-- JS for photo preview + file names -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // --- PHOTO PREVIEW ---
+  //PHOTO PREVIEW 
   const photoInput    = document.getElementById('photoInput');
   const photoPreview  = document.getElementById('photoPreview');
   const photoText     = document.getElementById('photoText');

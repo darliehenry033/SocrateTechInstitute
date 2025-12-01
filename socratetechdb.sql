@@ -1197,10 +1197,27 @@ SELECT DATABASE();
 
 USE socrate_tech_institute;
 
+ALTER TABLE application
+  ADD COLUMN application_code VARCHAR(20) UNIQUE,
+  ADD COLUMN photo_path       VARCHAR(255),
+  ADD COLUMN birth_act_path   VARCHAR(255),
+  ADD COLUMN transcripts_paths TEXT;
 
 
+ALTER TABLE application
+  ADD COLUMN IF NOT EXISTS last_school       VARCHAR(255) NULL,
+  ADD COLUMN IF NOT EXISTS modern_courses    VARCHAR(255) NULL,
+  ADD COLUMN IF NOT EXISTS birth_act_path    VARCHAR(255) NULL,
+  ADD COLUMN IF NOT EXISTS transcripts_paths TEXT NULL,
+  ADD COLUMN IF NOT EXISTS application_code  VARCHAR(50) NULL;
 
+USE socrate_tech_institute;
 
+ALTER TABLE application
+  ADD COLUMN last_school     VARCHAR(255) AFTER address,
+  ADD COLUMN modern_courses  VARCHAR(100) AFTER last_class;
+ALTER TABLE application
+  DROP COLUMN photo_passport;
 
 
 
