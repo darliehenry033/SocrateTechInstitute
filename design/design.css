@@ -2928,8 +2928,77 @@ font-weight: bold;
   color:#0d6efd;
 }
 
+/*Error Message design*/
+.error_message {
+  display: flex;
+  justify-content:center;
+  margin: 20px auto;
+}
 
-   
+.error_message p {
+  background: linear-gradient(135deg, #ff5f5f, #ff3838);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  box-shadow: 0 6px 16px rgba(255, 50, 50, 0.4);
+  animation: popIn 0.28s ease-out;
+  display: inline-flex;
+  width:40%;
+  justify-content: center;
+  font-style: italic;
+}
+
+@keyframes popIn {
+  from { transform: translateY(-10px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.error_message i{
+  margin-right:5px;
+  font-size: 18px;
+}
+
+.birthAct label,
+.transcript label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-box {
+  border: 2px dashed #bbb;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.file-box:hover {
+  background: #f1f1f1;
+  border-color: #999;
+}
+
+.file-click-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.file-title {
+  font-weight: 600;
+}
+
+.file-name {
+  font-style: italic;
+  color: #444;
+}
+
+
 
   
 

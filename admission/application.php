@@ -230,15 +230,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
   <div class="application-form-container">
-
-    <?php if (!empty($error)): ?>
+  <?php if (!empty($error)): ?>
       <div class="error_message">
-        <p style="color:red;"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><i class="fa-solid fa-circle-exclamation"></i><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
       </div>
     <?php endif; ?>
 
+    
+
     <form action="" method="POST" enctype="multipart/form-data">
+    
       <div class="personal-information personal-information-grid-part-1">
+     
         <div class="photo-upload">
           <label for="photoInput" class="photo-frame" id="photoFrame">
             <span id="photoText">Ajouter Photo</span>
@@ -331,25 +334,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <legend>Documents Requis</legend>
         
           <section class="required-documents-flex-container">
-            <div class="birthAct" id="birthActBox">
-              <label for="birthActInput">Acte de Naissance ou Extrait des Archives</label>
-              <input type="file" id="birthActInput" class="birthAct-doc" 
-                     name="birth_act" accept=".jpg,.jpeg,.png,.pdf" hidden>
+          <div class="birthAct file-box" id="birthActBox">
+            <label for="birthActInput">
+              <span>Acte de Naissance ou Extrait des Archives</span>
               <span class="file-name">Aucun fichier choisi</span>
-            </div>
+            </label>
+            <input type="file" id="birthActInput" class="birthAct-doc"
+                  name="birth_act" accept=".jpg,.jpeg,.png,.pdf" hidden>
+          </div>
+
         
-            <div class="transcript" id="transcriptsBox">
-              <label for="transcriptsInput">Relevés de notes</label>
-              <strong>(incluant toutes les classes précédentes et la dernière classe)</strong>
-              <input type="file" id="transcriptsInput" class="transcript-doc" 
-                     name="transcripts[]" multiple 
-                     accept=".jpg,.jpeg,.png,.pdf" hidden>
-              <span class="file-name">Aucun fichier choisi</span>
-            </div>
-          </section>
-        </div>
-        
-        <div class="confirmValidation">
+          <div class="transcript file-box" id="transcriptsBox">
+               <label class="file-click-zone">
+                <span class="file-title">Relevés de notes</span>
+                <strong>(incluant toutes les classes précédentes et la dernière classe)</strong>
+                <span class="file-name">Aucun fichier choisi</span>
+              </label>
+          </div>
+
+      <input type="file" id="transcriptsInput" name="transcripts[]" multiple accept=".jpg,.jpeg,.png,.pdf" hidden>
+    </div>
+
+    <div class="confirmValidation">
           <div class="validation-input">
             <input type="checkbox" id="validation" name="validation">
             <label for="textConfirm">Je Certifie que toutes les informations sont exactes et que les documents téléchargés sont authentiques.</label>
@@ -359,6 +365,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         </div>
       </div>
+
+
+          </section>
+        </div>
+        
+        
     </form>
   </div>
 
@@ -406,7 +418,6 @@ document.addEventListener('DOMContentLoaded', function () {
         input.click();
       });
     }
-
     input.addEventListener('change', function () {
       if (!input.files || input.files.length === 0) {
         span.textContent = 'Aucun fichier choisi';
@@ -425,6 +436,9 @@ document.addEventListener('DOMContentLoaded', function () {
   attachFileName('birthActInput', 'birthActBox');
   attachFileName('transcriptsInput', 'transcriptsBox');
 });
+
+
+
 </script>
 
 <script src="../js/script.js"></script>
