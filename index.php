@@ -318,6 +318,12 @@ $error = '';
         </div>
       </section>
 
+
+
+
+
+
+      <a href="../chatbot_folder/chatbot.php"> Chatbot</a>
     </main>
 
     <section class="footer-wrapper">

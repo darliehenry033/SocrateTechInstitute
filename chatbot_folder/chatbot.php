@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>AI Chatbot</title>
-  <link href="style.css" rel="stylesheet">
+  <link href="styleChat.css" rel="stylesheet">
 </head>
 <body>
   <div id="chat-bubble">
-     <img src="../images/bot.png" alt="Chatbot" id="bot-icon" onclick="">
+     <img src="../images/bot.png" alt="Chatbot" id="bot-icon">
   </div>
 
   <div id="chat-window">
@@ -38,7 +38,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.fog.min.js"></script>
 
 
-  <script src ="script.js"></script>
-<script src="server.js"> </script>
+  <script src ="scriptChat.js"></script>
+<script src="../server.js"> </script>
 </body>
 </html>
