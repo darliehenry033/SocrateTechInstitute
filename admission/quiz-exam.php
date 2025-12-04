@@ -5,39 +5,63 @@ require_once __DIR__ . '/../partials/header.php';
 
 
 <main>
-<section class="quiz-main-container">
-<section class="quiz-header-container">
-     <div class="header-left nav-left">
-             <a href="index.html">
-                <img src="../images/logowhite.png" alt="Socrate Tech Institute"> <!---
-                This will be the student profile picture
-                ----->
-             </a>
-             <h2>JEAN Peter</h2>
-     </div>
-   
+  <section class="quiz-main-container">
+    <header class="quiz-header-container">
+      <div class="header-left">
+        <a href="../index.php">
+          <img src="../images/logowhite.png" alt="Socrate Tech Institute">
+        </a>
+      </div>
+    </header>
 
-     <div class="header-right">
-       <h2><i class="fa-regular fa-clock"></i>05:45</h2>
+    <section class="question-answers-grid">
+      <div class="question-answer1-grid">
+        <p>Quelle est la valeur de 7 × 8 ?</p>
+      </div>
+      <div class="timer">
+        <div class="timer-title">
+        <span>Time</span>
+        </div>
+      <div class="progress-container">
+      <progress id="quizProgress" value="70" max="100"></progress>    
+     </div>
+
+     <div class="remaining-time">
+        <span>03:15</span>
+     </div>
       </div>
 
-     </section>
+      <div class="answers-flex-container">
+        <button class="answer-card" type="button">
+          <span class="answer-label">A</span>
+          <p class="answer-text">48</p>
+        </button>
 
-     <section class="question-answers-grid">
-  <div class="question-answer1-grid">Quelle est la valeur de 7 × 8 ?</div>
-  <div class="question-answer2-grid">48</div>
-  <div class="question-answer3-grid">54</div>
-  <div class="question-answer4-grid">56</div>
-  <div class="question-answer5-grid">65</div>
+        <button class="answer-card" type="button">
+          <span class="answer-label">B</span>
+          <p class="answer-text">54</p>
+        </button>
 
-  <div class="question-answer6-grid"><i class="fa-solid fa-arrow-left"></i>Question Précédente</div>
-  <div class="question-answer7-grid">Question Suivante<i class="fa-solid fa-arrow-right"></i></div>
-</section>
+        <button class="answer-card" type="button">
+          <span class="answer-label">C</span>
+          <p class="answer-text">56</p>
+        </button>
 
+        <button class="answer-card" type="button">
+          <span class="answer-label">D</span>
+          <p class="answer-text">65</p>
+        </button>
+      </div>
 
-   
- 
+      <div class="switch-flex-container">
+        <button class="nav-btn">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button class="nav-btn">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
 
-
-</section>
+    </section>
+  </section>
 </main>

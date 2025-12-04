@@ -12,11 +12,7 @@ require_once __DIR__ . '/../partials/header.php';
                 <img src="../images/logowhite.png" alt="Socrate Tech Institute">
              </a>
      </div>
-     <!-------
-     <div class="header-center">
-           <h1>Plateforme Officielle de Quiz d’Admission</h1>
-     </div>
--->
+   
      <div class="header-right">
        <h2>Session: 2025-2026</h2>
       </div>
