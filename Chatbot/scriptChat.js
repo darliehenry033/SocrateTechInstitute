@@ -184,3 +184,7 @@ const faqData = {
     }
   }
 };
+
+
+//Quiz system
+

@@ -1219,12 +1219,75 @@ ALTER TABLE application
 ALTER TABLE application
   DROP COLUMN photo_passport;
 
+USE socrate_tech_institute;
+
+CREATE TABLE quiz_user_answers(
+ quiz_user_answers_id INT AUTO_INCREMENT PRIMARY KEY,
+ quiz_id INT NOT NULL,
+ question_id INT NOT NULL,
+ is_correct TINYINT, -- 0(INCORRECT) OR 1(CORRECT)
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ 
+ FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id),
+ FOREIGN KEY (question_id) REFERENCES question_answers(question_id)
+);
+
+ALTER TABLE question_answers
+DROP COLUMN question_category;
+
+CREATE TABLE quiz_question_category(
+category_id INT AUTO_INCREMENT PRIMARY KEY,
+category_name VARCHAR(180) NOT NULL
+);
+ALTER TABLE question_answers
+ADD category_id INT;
+
+ALTER TABLE question_answers
+ADD CONSTRAINT fk_question_category
+FOREIGN KEY (category_id)
+REFERENCES quiz_question_category(category_id);
+
+ALTER TABLE question_answers
+ADD category_id INT AFTER class_id;
 
 
 
+SELECT DATABASE();
+
+SELECT * FROM question_answers;
+
+ALTER TABLE question_answers
+ADD COLUMN category_id INT;
+
+DROP TABLE question_answers;
+
+ALTER TABLE question_answers
+DROP class_id;
 
 
+DROP TABLE question_answers;
+ALTER TABLE question_answers
+DROP category_id;
+DROP TABLE question_answers;
 
+ALTER TABLE question_answers
+DROP question_id;
+
+DROP TABLE quiz_user_answers;
+DROP TABLE question_answers;
+
+CREATE TABLE question_answers (
+  question_id INT AUTO_INCREMENT PRIMARY KEY,
+  class_id INT NOT NULL,
+  category_id INT NOT NULL,
+  question_text VARCHAR(255) NOT NULL,
+  optionA VARCHAR(255) NOT NULL,
+  optionB VARCHAR(255) NOT NULL,
+  optionC VARCHAR(255) NOT NULL,
+  optionD VARCHAR(255) NOT NULL,
+  FOREIGN KEY (class_id) REFERENCES classes(class_id),
+  FOREIGN KEY (category_id) REFERENCES quiz_question_category(category_id)
+);
 
 
 

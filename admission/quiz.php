@@ -3,6 +3,19 @@ require_once __DIR__ . '/../database/database.php';
 require_once __DIR__ . '/../partials/header.php';
 ?>
 
+<?php
+if(isset($))
+
+
+
+
+
+?>
+
+
+
+
+
 
 <main>
 <section class="welcome-main-container">
@@ -59,13 +72,5 @@ require_once __DIR__ . '/../partials/header.php';
 
 </section>
 </main>
-
-
-
-
-
-
-
-
 </body>
 </html>
