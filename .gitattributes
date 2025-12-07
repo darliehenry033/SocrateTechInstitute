@@ -1,12 +1,16 @@
-
 *.php linguist-language=PHP
 *.phtml linguist-language=PHP
 
 
 *.sql linguist-language=SQL
+*.sql linguist-vendored=false
+*.sql linguist-generated=false
+
 
 vendor/* linguist-vendored
 node_modules/* linguist-vendored
 
+
 *.min.js linguist-generated
 *.min.css linguist-generated
+
