@@ -1,6 +1,4 @@
 //Quiz JS file
-
-
 document.addEventListener('DOMContentLoaded', () => {
     if (!window.QUIZ_DATA || !Array.isArray(QUIZ_DATA.questions) || QUIZ_DATA.questions.length === 0) {
       console.error('QUIZ_DATA missing or invalid', window.QUIZ_DATA);

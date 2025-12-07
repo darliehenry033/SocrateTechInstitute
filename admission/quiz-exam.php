@@ -5,7 +5,7 @@ require_once __DIR__ . '/../partials/header.php';
 
 $questions        = [];
 $error            = '';
-$timeLimitSeconds = 600; // 10 minutes
+$timeLimitSeconds = 600; 
 $quizStartTime    = null;
 
 unset($_SESSION['quiz']);
@@ -168,7 +168,6 @@ $applicationCode = isset($_GET['application_code'])
         </div>
 
         <div class="submit-btn-container">
-          <!-- IMPORTANT: id="submitBtn" MUST match JS -->
           <button class="button submit-btn-quiz" id="submitBtn">Envoyer</button>
         </div>
 

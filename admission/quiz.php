@@ -38,12 +38,10 @@ if (!isset($_GET['application_id'])) {
         if (!$applicant) {
             $error = "Candidat introuvable pour cette application.";
         } else {
-            // if last_class not passed in URL, take it from DB
             if ($lastClass === null && isset($applicant['last_class'])) {
                 $lastClass = (int) $applicant['last_class'];
             }
 
-            // compute age from date_of_birth (correct column)
             if (!empty($applicant['date_of_birth'])) {
                 $birth = new DateTime($applicant['date_of_birth']);
                 $today = new DateTime();

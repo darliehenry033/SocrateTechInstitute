@@ -7,7 +7,6 @@ $last_name = $first_name = $date_of_birth = $sex = $birthplace =
 $phone = $email = $address = $last_class = $last_school = $modern_course = "";
 $error = "";
 
-/* --------LOAD CLASSES FOR SELECT -------- */
 $classesList = [];
 $classSql = "SELECT class_id, class_name FROM classes ORDER BY class_name";
 if ($res = mysqli_query($connect, $classSql)) {
@@ -37,13 +36,11 @@ function handle_upload(
     $sizes     = $multiple ? $files['size']     : [$files['size']];
     $errors    = $multiple ? $files['error']    : [$files['error']];
 
-    // Base upload directory at project root
     $baseDir = __DIR__ . '/../uploads';
     if (!is_dir($baseDir)) {
         mkdir($baseDir, 0755, true);
     }
 
-    // Subdirectory (profile_photos, birth_acts, transcripts, etc.)
     $targetDir = $baseDir . '/' . $subDir;
     if (!is_dir($targetDir)) {
         mkdir($targetDir, 0755, true);
@@ -53,7 +50,6 @@ function handle_upload(
 
     foreach ($names as $index => $originalName) {
         if ($errors[$index] === UPLOAD_ERR_NO_FILE) {
-            // No file for this index
             continue;
         }
 
@@ -85,7 +81,6 @@ function handle_upload(
             throw new RuntimeException("Failed to move uploaded file for {$fieldName}");
         }
 
-        // Relative path to store later in DB
         $relativePath = 'uploads/' . $subDir . '/' . $newName;
         $savedPaths[] = $relativePath;
     }
@@ -94,9 +89,8 @@ function handle_upload(
     return $savedPaths;
 }
 
-/* ------------HANDLE POST ---------------*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize inputs
+
     $last_name     = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastName']    ?? '')));
     $first_name    = mysqli_real_escape_string($connect, trim(strip_tags($_POST['firstName']   ?? '')));
     $date_of_birth = trim(strip_tags($_POST['dateOfBirth'] ?? ''));
@@ -109,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $last_school   = mysqli_real_escape_string($connect, trim(strip_tags($_POST['lastSchool']  ?? '')));
     $modern_course = mysqli_real_escape_string($connect, trim(strip_tags($_POST['modernCourse']?? '')));
 
-    // --VALIDATION--------
     if (
         empty($last_name)    || empty($first_name)   || empty($date_of_birth) ||
         empty($sex)          || empty($birthplace)   || empty($phone)        ||
@@ -123,10 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Invalid phone number format";
     }
 
-    // If no validation error, handle uploads and DB
     if ($error === "") {
         try {
-            // One profile photo
             $photoPaths = handle_upload(
                 'photo_profile',
                 'profile_photos',
@@ -135,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 false
             );
 
-            // One birth act
             $birthActPaths = handle_upload(
                 'birth_act',
                 'birth_acts',
@@ -144,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 false
             );
 
-            // Multiple transcripts
             $transcriptPaths = handle_upload(
                 'transcripts',
                 'transcripts',
@@ -157,7 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $birthActPath   = $birthActPaths[0] ?? null;
             $transcriptsStr = $transcriptPaths ? implode(';', $transcriptPaths) : null;
 
-            // INSERT INTO DB 
             $sql = "INSERT INTO application 
                     (last_name, first_name, date_of_birth, sex, birthplace,
                      phone, email, address, last_class, last_school, modern_courses,
@@ -195,8 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $applicationId = mysqli_insert_id($connect);
             mysqli_stmt_close($stmt);
 
-            // GENERATE APPLICATION CODE
-            $offset          = 100; // APP-101, 102, ...
+            $offset          = 100;
             $codeNumber      = $applicationId + $offset;
             $applicationCode = 'APP-' . $codeNumber;
 
@@ -206,7 +193,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_execute($updateStmt);
             mysqli_stmt_close($updateStmt);
 
-            //  REDIRECT TO QUIZ
             header("Location: quiz.php?application_id=" . $applicationId);
             exit;
 
@@ -269,8 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="birthplace">Lieu de Naissance (Ville en Haïti)</label>
     <select id="birthplace" name="birthplace" required>
       <option value="">Sélectionnez une ville</option>
-      <!-- here you should eventually generate options in PHP
-           and set selected based on $birthplace -->
+
       <option value=""><script>loadHaitiCities();</script></option>
     </select>
 
@@ -389,10 +374,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php include __DIR__ . '/../partials/customfooter.php'; ?>
 </main>
 
-<!-- JS for photo preview + file names -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  //PHOTO PREVIEW 
   const photoInput    = document.getElementById('photoInput');
   const photoPreview  = document.getElementById('photoPreview');
   const photoText     = document.getElementById('photoText');
@@ -416,7 +400,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // click label opens file input for all custom boxes
   function attachFileName(inputId, boxId) {
     const input = document.getElementById(inputId);
     const box   = document.getElementById(boxId);

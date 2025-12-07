@@ -3,30 +3,23 @@ session_start();
 require_once __DIR__ . '/../database/database.php';
 require_once __DIR__ . '/../partials/header.php';
 
-/* ---------- Small helper ---------- */
 function h($v) {
     return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8');
 }
 
-/* ---------- Read GET params ---------- */
-// Required for result
 $applicationId = isset($_GET['application_id']) ? (int) $_GET['application_id'] : null;
 $finished      = isset($_GET['finished']) ? (int) $_GET['finished'] : 0;
 
-// Sent by JS
 $correct = isset($_GET['correct']) ? (int) $_GET['correct'] : null;
 $total   = isset($_GET['total'])   ? (int) $_GET['total']   : null;
 
 $applicant = null;
 $error     = '';
 
-/* ---------- Basic validation ---------- */
 if (!$finished || $applicationId === null || $correct === null || $total === null) {
     $error = "Les informations du quiz sont incomplètes. Veuillez contacter l'administration.";
 } else {
-    // Sanity checks
     if ($total <= 0) {
-        // fallback: try session if exists
         if (isset($_SESSION['quiz']['questions']) && is_array($_SESSION['quiz']['questions'])) {
             $total = max(1, count($_SESSION['quiz']['questions']));
         } else {
@@ -41,13 +34,10 @@ if (!$finished || $applicationId === null || $correct === null || $total === nul
         $correct = $total;
     }
 
-    // Compute percentage
     $scorePercent = round(($correct / $total) * 100);
 
-    // Admission rule (70%)
     $isAdmitted = $scorePercent >= 70;
 
-    // Load applicant
     $sql = "SELECT application_code, first_name, last_name, email 
             FROM application
             WHERE application_id = ?";
@@ -65,8 +55,6 @@ if (!$finished || $applicationId === null || $correct === null || $total === nul
         $error = "Erreur interne lors du chargement des données.";
     }
 }
-
-/* ---------- Build status / message ---------- */
 $status        = null;
 $statusMessage = null;
 
@@ -84,7 +72,6 @@ if (!$error && $applicant) {
             "Vous pourrez retenter votre chance lors de la prochaine session.";
     }
 
-    // Optional email notification
     if (!empty($applicant['email'])) {
         $to      = $applicant['email'];
         $subject = "Avis d'admission - Socrate Tech Institute";
