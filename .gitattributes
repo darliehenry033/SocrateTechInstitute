@@ -1,10 +1,12 @@
-# Force all PHP-like files to be counted as PHP, not Hack
+
 *.php linguist-language=PHP
 *.phtml linguist-language=PHP
 
-# Count SQL correctly
+
 *.sql linguist-language=SQL
 
-# Optionally mark generated/vendor files so they don't distort stats
 vendor/* linguist-vendored
 node_modules/* linguist-vendored
+
+*.min.js linguist-generated
+*.min.css linguist-generated
