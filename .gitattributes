@@ -6,6 +6,8 @@
 *.sql linguist-vendored=false
 *.sql linguist-generated=false
 
+*.sql linguist-detectable=true
+*.sql linguist-language=SQL
 
 vendor/* linguist-vendored
 node_modules/* linguist-vendored

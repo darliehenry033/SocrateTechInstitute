@@ -1501,10 +1501,9 @@ ALTER TABLE question_answers
 ADD COLUMN correct_answer CHAR(1) NOT NULL DEFAULT 'A' 
 AFTER optionD;
 
--- Question 1: "What is 6 x 7?" Answer: 42 (optionA)
+
 UPDATE question_answers SET correct_answer = 'A' WHERE question_id = 1;
 
--- Question 2: "What is 15 + 9?" Answer: 24 (optionB)
 UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 2;
 
 CREATE TABLE IF NOT EXISTS quiz_results (
@@ -1518,12 +1517,7 @@ CREATE TABLE IF NOT EXISTS quiz_results (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- ==========================================
--- TEMPLATE: Set Correct Answers in Bulk
--- ==========================================
--- YOU MUST REVIEW EACH QUESTION AND SET THE RIGHT ANSWER!
 
--- Step 1: Export questions to see them clearly
 SELECT 
     question_id,
     CONCAT('Q', question_id, ': ', LEFT(question_text, 50), '...') as question,
@@ -1536,15 +1530,12 @@ FROM question_answers
 WHERE class_id = 7  -- Change to your class
 ORDER BY category_id, question_id;
 
--- Step 2: Update template (EXAMPLE - you need to fill in the correct letters)
 UPDATE question_answers SET correct_answer = 'A' WHERE question_id = 1;  -- What is 6 x 7? = 42
 UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 2;  -- What is 15 + 9? = 24
 UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 3;  -- What is 81 ÷ 9? = 9
 UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 4;  -- Which number is prime? = 21
 
--- REPEAT FOR ALL 112 QUESTIONS...
 
--- Step 3: Verify your updates
 SELECT 
     question_id,
     LEFT(question_text, 40) as question,
@@ -1559,11 +1550,11 @@ FROM question_answers
 WHERE class_id = 7
 ORDER BY question_id;
 
--- Step 4: Check if any questions still have default 'A'
+
 SELECT COUNT(*) as questions_with_default_A
 FROM question_answers
 WHERE correct_answer = 'A' AND class_id = 7;
 
--- If this returns a high number, you haven't finished setting answers!
+
 
 
