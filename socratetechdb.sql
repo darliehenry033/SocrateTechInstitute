@@ -1289,6 +1289,281 @@ CREATE TABLE question_answers (
   FOREIGN KEY (category_id) REFERENCES quiz_question_category(category_id)
 );
 
+CREATE TABLE quiz_user_answers(
+quiz_user_answers_id INT AUTO_INCREMENT PRIMARY KEY,
+quiz_id INT NOT NULL,
+question_id INT NOT NULL,
+is_correct TINYINT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id),
+FOREIGN KEY (question_id) REFERENCES question_answers(question_id)
+);
+
+INSERT INTO quiz_question_category (category_name)
+VALUES
+('Mathematics'),
+('IT'),
+('Science'),
+('General Knowledge');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD)
+VALUES
+(7, 1, 'What is 6 × 7?', '42', '36', '48', '56'),
+(7, 1, 'What is 15 + 9?', '20', '24', '30', '22'),
+(7, 1, 'What is 81 ÷ 9?', '7', '8', '9', '10'),
+(7, 1, 'Which number is prime?', '21', '15', '17', '25'),
+(7, 1, 'What is 12 × 5?', '50', '55', '60', '65');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD)
+VALUES
+(7, 2, 'What does CPU stand for?', 'Central Process Unit', 'Central Processing Unit', 'Compute Power Utility', 'Control Processing User'),
+(7, 2, 'Which device stores data permanently?', 'RAM', 'SSD or HDD', 'Cache', 'CPU'),
+(7, 2, 'What is the role of an operating system?', 'Manage hardware and software', 'Print documents', 'Store electricity', 'Control WiFi'),
+(7, 2, 'Which one is a programming language?', 'HTML', 'CSS', 'Python', 'USB'),
+(7, 2, 'What does URL stand for?', 'User Random Link', 'Uniform Resource Locator', 'Universal Router Line', 'Unified Record Layer');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD)
+VALUES
+(7, 3, 'What is the boiling point of water?', '50°C', '80°C', '100°C', '120°C'),
+(7, 3, 'Which planet is closest to the Sun?', 'Earth', 'Mars', 'Mercury', 'Venus'),
+(7, 3, 'Which gas do plants release?', 'CO2', 'Nitrogen', 'Oxygen', 'Helium'),
+(7, 3, 'Humans mainly breathe in which gas?', 'Hydrogen', 'Oxygen', 'Helium', 'Methane'),
+(7, 3, 'What is H2O?', 'Salt', 'Water', 'Oxygen', 'Hydrogen');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD)
+VALUES
+(7, 4, 'Which country has the Eiffel Tower?', 'Italy', 'Germany', 'France', 'Spain'),
+(7, 4, 'How many continents are there?', '5', '6', '7', '8'),
+(7, 4, 'Which is the largest ocean?', 'Atlantic', 'Indian', 'Pacific', 'Arctic'),
+(7, 4, 'What is the emergency number in the USA?', '411', '119', '911', '811'),
+(7, 4, 'Which animal is called King of the Jungle?', 'Tiger', 'Lion', 'Elephant', 'Leopard');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math (cat 1)
+(1, 1, 'What is 5 + 7?', '10', '11', '12', '13'),
+(1, 1, 'What is 9 − 4?', '3', '4', '5', '6'),
+(1, 1, 'What is 6 × 3?', '9', '12', '18', '21'),
+
+-- IT (cat 2)
+(1, 2, 'Which device is used to move the cursor?', 'Keyboard', 'Mouse', 'Speaker', 'Printer'),
+(1, 2, 'Which of these is a computer?', 'Table', 'Laptop', 'Chair', 'Window'),
+(1, 2, 'Which part shows the output?', 'Mouse', 'Monitor', 'Keyboard', 'USB'),
+
+-- Science (cat 3)
+(1, 3, 'Which one is a liquid at room temperature?', 'Ice', 'Water', 'Steam', 'Stone'),
+(1, 3, 'Which sense organ helps us see?', 'Nose', 'Eyes', 'Ears', 'Tongue'),
+(1, 3, 'Which animal can fly?', 'Dog', 'Cat', 'Bird', 'Fish'),
+
+-- General Knowledge (cat 4)
+(1, 4, 'What day comes after Monday?', 'Friday', 'Tuesday', 'Sunday', 'Thursday'),
+(1, 4, 'Which color is the sky on a clear day?', 'Green', 'Blue', 'Red', 'Yellow'),
+(1, 4, 'How many legs does a human have?', '1', '2', '3', '4');
+
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math
+(2, 1, 'What is 15 + 9?', '22', '23', '24', '25'),
+(2, 1, 'What is 40 − 18?', '18', '20', '22', '24'),
+(2, 1, 'What is 8 × 7?', '48', '54', '56', '64'),
+
+-- IT
+(2, 2, 'Which one is an input device?', 'Monitor', 'Mouse', 'Projector', 'Speaker'),
+(2, 2, 'Which file extension is used for pictures?', '.txt', '.jpg', '.doc', '.pdf'),
+(2, 2, 'Which key deletes the character on the left?', 'Enter', 'Shift', 'Backspace', 'Tab'),
+
+-- Science
+(2, 3, 'Water freezes at what temperature?', '-10°C', '0°C', '10°C', '100°C'),
+(2, 3, 'Which gas do we breathe in mainly?', 'Carbon dioxide', 'Oxygen', 'Helium', 'Chlorine'),
+(2, 3, 'Which part of the plant is usually green?', 'Root', 'Stem', 'Leaf', 'Fruit'),
+
+-- General Knowledge
+(2, 4, 'How many days are in a week?', '5', '6', '7', '8'),
+(2, 4, 'Which of these is a continent?', 'Asia', 'Paris', 'Nile', 'Madrid'),
+(2, 4, 'Which language is mainly spoken in Haiti?', 'Spanish', 'French', 'Creole', 'English');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math
+(3, 1, 'What is 5²?', '5', '10', '20', '25'),
+(3, 1, 'What is 9 × 6?', '45', '48', '52', '54'),
+(3, 1, 'What is the value of 100 ÷ 4?', '20', '25', '30', '35'),
+
+-- IT
+(3, 2, 'Binary numbers use which digits?', '0 and 1', '1 and 2', '2 and 3', '8 and 9'),
+(3, 2, 'Which one is NOT an input device?', 'Keyboard', 'Scanner', 'Monitor', 'Mouse'),
+(3, 2, 'What does CPU stand for?', 'Central Process Unit', 'Central Processing Unit', 'Computer Personal Unit', 'Central Printed Unit'),
+
+-- Science
+(3, 3, 'Which part of the cell contains DNA?', 'Cell wall', 'Nucleus', 'Cytoplasm', 'Membrane'),
+(3, 3, 'Which energy source is renewable?', 'Coal', 'Oil', 'Solar', 'Gas'),
+(3, 3, 'What is the chemical symbol for water?', 'O₂', 'H₂', 'H₂O', 'CO₂'),
+
+-- General Knowledge
+(3, 4, 'Which ocean is the largest?', 'Atlantic', 'Indian', 'Pacific', 'Arctic'),
+(3, 4, 'Which city is the capital of France?', 'Madrid', 'Rome', 'Paris', 'Berlin'),
+(3, 4, 'Which instrument has black and white keys?', 'Guitar', 'Piano', 'Drum', 'Flute');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math
+(4, 1, 'Solve: 2x + 5 = 15. What is x?', '3', '4', '5', '10'),
+(4, 1, 'What is the value of 3(4 + 2)?', '12', '14', '16', '18'),
+(4, 1, 'What is the slope of the line y = 2x + 3?', '1', '2', '3', '4'),
+(4, 1, 'What is 30% of 200?', '40', '50', '60', '70'),
+
+-- IT
+(4, 2, 'Which language is used to structure web pages?', 'CSS', 'HTML', 'Python', 'SQL'),
+(4, 2, 'Which storage is fastest?', 'Hard disk', 'SSD', 'DVD', 'Floppy disk'),
+(4, 2, 'What does RAM stand for?', 'Random Access Memory', 'Read Any Memory', 'Ready Access Memory', 'Real Active Memory'),
+(4, 2, 'Which protocol is used to browse web pages?', 'FTP', 'HTTP', 'SMTP', 'SSH'),
+
+-- Science
+(4, 3, 'Which particle has a negative charge?', 'Proton', 'Neutron', 'Electron', 'Photon'),
+(4, 3, 'What is the main gas in Earth’s atmosphere?', 'Oxygen', 'Nitrogen', 'Carbon dioxide', 'Hydrogen'),
+(4, 3, 'Which organ pumps blood in the human body?', 'Lungs', 'Kidney', 'Heart', 'Liver'),
+
+-- General Knowledge
+(4, 4, 'Which country is in the Caribbean?', 'Germany', 'Haiti', 'China', 'Italy'),
+(4, 4, 'The Great Wall is in which country?', 'Japan', 'Korea', 'China', 'India'),
+(4, 4, 'Which sport is played with a round ball and feet?', 'Basketball', 'Tennis', 'Football', 'Volleyball');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math
+(5, 1, 'Solve: 4x − 8 = 0. What is x?', '1', '2', '4', '8'),
+(5, 1, 'What is √169?', '11', '12', '13', '14'),
+(5, 1, 'What is (2x)(3x)?', '5x', '5x²', '6x', '6x²'),
+(5, 1, 'Convert 0.75 to a fraction.', '1/2', '3/4', '2/3', '4/5'),
+
+-- IT
+(5, 2, 'Which database language is most common?', 'CSS', 'HTML', 'SQL', 'C++'),
+(5, 2, 'Which one is an operating system?', 'Chrome', 'Windows', 'Facebook', 'YouTube'),
+(5, 2, 'Which device connects a network to the internet?', 'Switch', 'Mouse', 'Router', 'Speaker'),
+(5, 2, 'What does URL stand for?', 'Uniform Resource Locator', 'Universal Record Link', 'User Route Line', 'Unified Reference Locator'),
+
+-- Science
+(5, 3, 'Which law explains action and reaction?', 'Newton’s first law', 'Newton’s second law', 'Newton’s third law', 'Law of gravity'),
+(5, 3, 'What is the unit of electric current?', 'Volt', 'Watt', 'Ampere', 'Ohm'),
+(5, 3, 'Which organ is responsible for filtering blood?', 'Heart', 'Kidney', 'Liver', 'Lungs'),
+
+-- General Knowledge
+(5, 4, 'Who wrote “Romeo and Juliet”?', 'Charles Dickens', 'William Shakespeare', 'Victor Hugo', 'Mark Twain'),
+(5, 4, 'Which country is famous for the pyramids?', 'Greece', 'Egypt', 'Brazil', 'Canada'),
+(5, 4, 'Which currency is used in the USA?', 'Euro', 'Pound', 'Dollar', 'Yen');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math
+(6, 1, 'What is the solution of x² = 49?', '±5', '±6', '±7', '±8'),
+(6, 1, 'Simplify: (x² · x³).', 'x⁵', 'x⁴', 'x³', 'x²'),
+(6, 1, 'What is the value of sin(90°)?', '0', '1', '−1', '0.5'),
+(6, 1, 'Solve: 3x + 2 = 14.', '2', '3', '4', '5'),
+
+-- IT
+(6, 2, 'Which language runs in the browser?', 'C', 'C++', 'JavaScript', 'Java'),
+(6, 2, 'Which command is used to list files in Linux?', 'ls', 'cd', 'rm', 'mv'),
+(6, 2, 'Which data structure uses FIFO?', 'Stack', 'Queue', 'Tree', 'Graph'),
+(6, 2, 'Which protocol is secure for web?', 'HTTP', 'FTP', 'HTTPS', 'Telnet'),
+
+-- Science
+(6, 3, 'Which scientist proposed the theory of relativity?', 'Newton', 'Einstein', 'Darwin', 'Tesla'),
+(6, 3, 'Which wave does not need a medium?', 'Sound wave', 'Water wave', 'Light wave', 'Seismic wave'),
+(6, 3, 'What is the pH of neutral water?', '0', '5', '7', '10'),
+
+-- General Knowledge
+(6, 4, 'Which organization is abbreviated as UN?', 'United Nations', 'United Nations Bank', 'Union of Nations', 'Universal Network'),
+(6, 4, 'Which city is called “Big Apple”?', 'Los Angeles', 'New York', 'Chicago', 'Miami'),
+(6, 4, 'Which country hosted the 2016 Olympic Games?', 'China', 'Brazil', 'UK', 'Japan');
+
+INSERT INTO question_answers (class_id, category_id, question_text, optionA, optionB, optionC, optionD) VALUES
+-- Math
+(7, 1, 'What are the roots of x² − 9 = 0?', '±2', '±3', '±4', '±5'),
+(7, 1, 'Evaluate the determinant of [[1,2],[3,4]].', '−2', '−1', '1', '2'),
+(7, 1, 'What is the derivative of x³?', 'x²', '2x²', '3x²', '3x'),
+(7, 1, 'Compute: ∫ 2x dx.', 'x² + C', 'x²/2 + C', '2x² + C', 'x + C'),
+
+-- IT
+(7, 2, 'Which paradigm does Java support?', 'Functional only', 'Object-oriented', 'Procedural only', 'None'),
+(7, 2, 'Which database type is MySQL?', 'NoSQL', 'Graph DB', 'Relational', 'In-memory only'),
+(7, 2, 'Which HTTP method is commonly used to submit forms?', 'GET', 'POST', 'DELETE', 'PATCH'),
+(7, 2, 'Which one is a version control system?', 'MySQL', 'Git', 'Apache', 'Nginx'),
+
+-- Science
+(7, 3, 'Which bond shares electron pairs?', 'Ionic bond', 'Covalent bond', 'Metallic bond', 'Hydrogen bond'),
+(7, 3, 'Which organelle produces energy (ATP) in the cell?', 'Nucleus', 'Ribosome', 'Mitochondrion', 'Golgi body'),
+(7, 3, 'Which law relates pressure and volume of a gas?', 'Ohm’s law', 'Boyle’s law', 'Hooke’s law', 'Kepler’s law'),
+
+-- General Knowledge
+(7, 4, 'Who is known as the “Father of Computers”?', 'Albert Einstein', 'Isaac Newton', 'Charles Babbage', 'Alan Turing'),
+(7, 4, 'Which continent is the Sahara Desert in?', 'Asia', 'Africa', 'Australia', 'Europe'),
+(7, 4, 'Which document begins with “We the People…”?', 'Universal Declaration of Human Rights', 'US Constitution', 'Magna Carta', 'UN Charter');
+
+USE socrate_tech_institute;
+
+ALTER TABLE question_answers 
+ADD COLUMN correct_answer CHAR(1) NOT NULL DEFAULT 'A' 
+AFTER optionD;
+
+-- Question 1: "What is 6 x 7?" Answer: 42 (optionA)
+UPDATE question_answers SET correct_answer = 'A' WHERE question_id = 1;
+
+-- Question 2: "What is 15 + 9?" Answer: 24 (optionB)
+UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 2;
+
+CREATE TABLE IF NOT EXISTS quiz_results (
+  result_id INT(11) NOT NULL AUTO_INCREMENT,
+  application_id INT(11) NOT NULL,
+  score INT(11) NOT NULL CHECK (score BETWEEN 0 AND 100),
+  status VARCHAR(50) NOT NULL,
+  completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (result_id),
+  UNIQUE KEY unique_application_result (application_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- ==========================================
+-- TEMPLATE: Set Correct Answers in Bulk
+-- ==========================================
+-- YOU MUST REVIEW EACH QUESTION AND SET THE RIGHT ANSWER!
+
+-- Step 1: Export questions to see them clearly
+SELECT 
+    question_id,
+    CONCAT('Q', question_id, ': ', LEFT(question_text, 50), '...') as question,
+    CONCAT('A: ', optionA) as optionA,
+    CONCAT('B: ', optionB) as optionB,
+    CONCAT('C: ', optionC) as optionC,
+    CONCAT('D: ', optionD) as optionD,
+    correct_answer as current_answer
+FROM question_answers
+WHERE class_id = 7  -- Change to your class
+ORDER BY category_id, question_id;
+
+-- Step 2: Update template (EXAMPLE - you need to fill in the correct letters)
+UPDATE question_answers SET correct_answer = 'A' WHERE question_id = 1;  -- What is 6 x 7? = 42
+UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 2;  -- What is 15 + 9? = 24
+UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 3;  -- What is 81 ÷ 9? = 9
+UPDATE question_answers SET correct_answer = 'B' WHERE question_id = 4;  -- Which number is prime? = 21
+
+-- REPEAT FOR ALL 112 QUESTIONS...
+
+-- Step 3: Verify your updates
+SELECT 
+    question_id,
+    LEFT(question_text, 40) as question,
+    correct_answer,
+    CASE 
+        WHEN correct_answer = 'A' THEN optionA
+        WHEN correct_answer = 'B' THEN optionB
+        WHEN correct_answer = 'C' THEN optionC
+        WHEN correct_answer = 'D' THEN optionD
+    END as correct_option_text
+FROM question_answers
+WHERE class_id = 7
+ORDER BY question_id;
+
+-- Step 4: Check if any questions still have default 'A'
+SELECT COUNT(*) as questions_with_default_A
+FROM question_answers
+WHERE correct_answer = 'A' AND class_id = 7;
+
+-- If this returns a high number, you haven't finished setting answers!
 
 
