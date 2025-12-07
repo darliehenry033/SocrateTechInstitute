@@ -186,5 +186,4 @@ const faqData = {
 };
 
 
-//Quiz system
 
