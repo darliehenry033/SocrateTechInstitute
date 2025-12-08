@@ -36,11 +36,61 @@
     --spacing-md: 24px;
     --spacing-lg: 32px;
     --spacing-xl: 48px;
+
+  --section-padding-y: 4%;    
+  --section-padding-x: 3%;      
+  --section-gap-y: 80px;
   }
+  /* Global layout only for HOME sections */
+.hero,
+.explore-tab-ui,
+.why-choose-us,
+.filieres-wrapper,
+.commentpostuler,
+.testimonials-wrapper,
+.ourpartners-wrapper,.campusgrid-container{
+  padding: 5% 5%;
+  margin: 0 auto;
+  max-width: 1400px;  
+}
+
+h1, h2 {
+  font-family: var(--font-heading) !important;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.03em;
+  
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: inherit;
+}
+p{
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  font-family: var(--font-body2);
+  font-weight: bold;
+}
+
+h2 {
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.3;
+  margin-bottom: var(--spacing-sm);
+}
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--font-body2);
   }
   body {
     min-height: 100vh;
@@ -131,7 +181,6 @@ font-weight: bold;
 
 /*Hero Section*/
 .hero{
-    padding: 5% 10%;
     display: flex;
     justify-content:space-between;
     position: relative;
@@ -250,7 +299,6 @@ font-weight: bold;
    
   /*Explore Tabs UI*/
   .explore-tab-ui {
-    padding: 5% 10%;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -258,7 +306,6 @@ font-weight: bold;
   }
 
   .tabs {
-    width: 800px;
     height: 60px;
     background: #e5e6e8;
     display: flex;
@@ -293,13 +340,12 @@ font-weight: bold;
     width: 70%;
     opacity: 1;
   }
-  
   .tabs-content {
     display: none !important;
     margin-top: 20px;
     font-size: 18px;
+    width: 100% !important;
   }
-  
   .tabs-content-active {
     display: block !important;
   }
@@ -311,21 +357,46 @@ font-weight: bold;
     margin: var(--spacing-sm) 0;
     font-size:var(--font-size-body2);
   }
+  .campusgrid-container img{
+    width: 48%;
+    height: 400px;
+
+  }
+  .campusgrid-container img{
+    border-bottom-right-radius: -40px !important;
+  }
+  .campusgrid-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: space-between;
+    gap: 100px;
+    width: 100%;
+    row-gap: 100px !important;
+    column-gap: 100px !important;
+    justify-content: space-around;
+    padding: 0 inherit;
+    
+  }
+  .campusgrid-container:nth-child(1),
+  .campusgrid-container:nth-child(2),
+  .campusgrid-container:nth-child(3),
+  .campusgrid-container:nth-child(4){
+     grid-column: span 1;
+  }
+
+  /*
   .campusflex-container{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+
   }
-  .campusflex-container img{
-    width: 500px;
-    height: 500px;
-    border-bottom-left-radius: 10%;
-    border-top-right-radius: 10%;
-    margin: 0px 0px 50px 50px;
-  }
+  */
+  
+ 
+
   /*Why choose Us Section*/
+  /*
 .why-choose-us{
-    padding: 5% 10%;
     display: grid;
     grid-template-columns: repeat(3,1fr);
     align-items: center;
@@ -333,6 +404,7 @@ font-weight: bold;
     box-shadow: 0px 3px 5px 0px rgba(206, 203, 203, 0.1);
     background-color: #e8f5f8;
 }
+
 .why-choose-us h1{
     font-family: var(--font-body);
 }
@@ -363,6 +435,7 @@ font-weight: bold;
     justify-content:center;
     border-radius: 50%;
 }
+*/
 .comment-postuler-title{
     margin: 0 10%;
     font-family: var(--font-body);
@@ -372,21 +445,20 @@ font-weight: bold;
 
 .testimonials-wrapper h1 {
     text-align: center;
-    font-family: var(--font-heading);
   }
-  
+  .explore-tab-ui h1{
+    font-family: var(--font-heading);
+    text-align:center;
+  }
   .testimonials-wrapper .testimonial-paragraph {
     padding: 0% 10%;
     text-align: center;
   }
   
-  .testimonials-wrapper {
-    margin: 0% 10%;
-  }
+ 
   .testimonial-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 5% 10%;
     gap: 30px;
   }
   
@@ -485,9 +557,6 @@ font-weight: bold;
   }
   
   /*Our Partners*/
-  .ourpartners-wrapper{
-    margin: 5% 10%;
-  }
   .ourpartners-wrapper h1{
     font-family: var(--font-heading);
   }
@@ -1937,9 +2006,7 @@ font-weight: bold;
     color: red;
   }
   
-  /* ========================
-     DASHBOARD HEADER
-     ======================== */
+  /*DASHBOARD HEADER*/
   
   .dashboards-header-outer-container {
     display: flex;
@@ -2016,9 +2083,7 @@ font-weight: bold;
     color: #071426;
   }
   
-  /* ========================
-     OVERVIEW CARDS
-     ======================== */
+  /*OVERVIEW CARDS*/
   
   .dashboard-card-outer-container {
     display: flex;
@@ -2134,9 +2199,7 @@ font-weight: bold;
     line-height: 2;
   }
   
-  /* ========================
-     STATS / CHARTS
-     ======================== */
+  /*STATS / CHARTS*/
   
   .socratetech-statistic {
     display: grid;
@@ -2161,7 +2224,7 @@ font-weight: bold;
     flex-direction: column;
   }
   
-  /* USER MANAGEMENT*/
+  /*USER MANAGEMENT*/
   
   .user-management {
     padding: 40px 40px;
@@ -2184,7 +2247,6 @@ font-weight: bold;
   .add-admin-button span i {
     text-align: center;
   }
-  
   /* Tab buttons */
   .user-management-tab-button {
     margin-top: 20px;
@@ -2286,9 +2348,7 @@ font-weight: bold;
     text-align: center;
   }
   
-  /* ========================
-     CLASSES & COURSES
-     ======================== */
+  /* CLASSES & COURSES */
   
   .classes-content-container {
     display: none;
@@ -2584,9 +2644,7 @@ font-weight: bold;
     color: rgb(12, 12, 96);
   }
   
-  /* ========================
-     STUDENTS TABLE
-     ======================== */
+  /* STUDENTS TABLE */
   
   .student-container {
     width: 80vw;
@@ -2626,11 +2684,11 @@ font-weight: bold;
     background-color: #ffffff;
   }
   
-  /* ✅ single borders – fixes the double-border effect */
+
   .student-container th,
   .student-container td {
     padding: 8px 10px;
-    border: 1px solid #071426; /* 1px to keep inner grid clean */
+    border: 1px solid #071426;
     white-space: nowrap;
     text-align: left;
   }
@@ -2639,7 +2697,7 @@ font-weight: bold;
     z-index: 1;
   }
   
-  /* Buttons in actions column */
+  
   .delete i {
     text-align: center;
   }
@@ -2677,8 +2735,7 @@ font-weight: bold;
     margin-right: 5px !important;
   }
   
-
-  /*Modals related design*/
+/*Modals*/
   .modal-form-container input,
 .modal-form-container select,
 .modal-form-container textarea,
@@ -2726,8 +2783,6 @@ font-weight: bold;
   height: 150px;
 }
 
-/* ---------------- MULTI-SELECT (Select Parent(s)) ---------------- */
-/* Optional select wrapper (for arrow) */
 .select-wrapper {
   position: relative;
   width: 80%;
@@ -2748,7 +2803,6 @@ font-weight: bold;
   pointer-events: none;
 }
 
-/* ---------------- BUTTONS ---------------- */
 .input-group button:not(:first-child) {
   background-color: #071426;
   color: #ffffff;
@@ -2758,7 +2812,6 @@ font-weight: bold;
   color: #00b4d8;
 }
 
-/* ---------------- MODAL CLOSE BUTTON ---------------- */
 .close-x {
   position: absolute;
   top: 0;
@@ -3308,9 +3361,101 @@ cursor: pointer;
 .question-answers-grid{
   box-shadow:0px 0px 6px 3px rgb(41, 41, 128);
 }
-
-
-
+/*Choose us Redesign*/
+.choose-us-container{
+  display: grid;
+  grid-template-columns: repeat(3,300px);
+  width: 100%;
+  height: 800px;
+  gap: 30px;
+  justify-content: center;
+  
+  padding: 5% 5%;
+}
+.grid-element-1{
+ grid-column: span 2;
+ background-color: blue;
+ border-radius: 20px;
+ padding: 10px 16px;
+ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+ background-color: white;
+ background: url(../images/choose-us/modernlearning.jpg);
+ background-position:center;
+  background-size:cover;
+  position: relative;
+  content:'';
+}
+.grid-element-2{
+  grid-column: span 1;
+  grid-row: span 2;
+  background-color: green;
+  border-radius: 20px;
+  padding: 10px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  background-color: white;
+  background: url(../images/choose-us/community.jpg);
+  background-position:center;
+  background-size:cover;
+  position: relative;
+  content:'';
+}
+.grid-element-3{
+  grid-column:span 1;
+ background-color: #00c3ff;
+ border-radius: 20px;
+ padding: 10px 16px;
+ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+ background-color: white;
+ background:url(../images/choose-us/path.jpg);
+ background-position:center;
+ background-size:cover;
+ position: relative;
+ content:'';
+}
+.grid-element-4{
+  grid-column:span 1;
+  background-color: #00c3ff;
+  border-radius: 20px;
+  padding: 10px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  background: #071426;
+  
+  position: relative;
+  content:'';
+  display: flex;
+  justify-content: center;
+  background:url(../images/choose-us/tech.jpg);
+ background-position:center;
+ background-size:cover;
+}
+.grid-element-1 h2,
+.grid-element-2 h2,
+.grid-element-3 h2,
+.grid-element-4 h2{
+  color: white;
+}
+.grid-element-1 p,
+.grid-element-2 p,
+.grid-element-3 p,
+.grid-element-4 p{
+  color: white;
+}
+.new-technologies-container{
+ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+ background-color: none;
+ border-radius: 20px;
+ display: grid;
+ grid-template-columns: repeat(4,1fr);
+ position: absolute;
+ width: 75%;
+ padding: 10px;
+ bottom: 20px;
+ transform:rotate(-7deg);
+}
+.element img{
+  width: 50px;
+  bottom: 0px !important;
+}
 
 
   

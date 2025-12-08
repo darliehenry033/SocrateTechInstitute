@@ -56,47 +56,74 @@ $error = '';
 
     <main>
  
-      <section class="explore-tab-ui">
-        <h1>La Vie sur le Campus</h1>
-        <p>Découvrez les différents espaces, activités et services offerts à nos élèves au sein de l’Institut Socrate Tech.</p>
-    
-        <div class="tabs">
-          <button class="tabs-buttons btn-active" data-tab="1">Infrastructures</button>
-          <button class="tabs-buttons" data-tab="2">Laboratoires</button>
-          <button class="tabs-buttons" data-tab="3">Espaces Sportifs</button>
-          <button class="tabs-buttons" data-tab="4">Gym & Détente</button>
+    <section class="explore-tab-ui">
+  <h1>La Vie sur le Campus</h1>
+
+  <div class="tabs">
+    <button class="tabs-buttons btn-active" data-tab="1">Infrastructures</button>
+    <button class="tabs-buttons" data-tab="2">Laboratoires</button>
+    <button class="tabs-buttons" data-tab="3">Espaces Sportifs</button>
+    <button class="tabs-buttons" data-tab="4">Gym & Détente</button>
+  </div>
+
+  <div class="tabs-content tabs-content-active campusgrid-container" data-tab="1">
+  <img src="images/tabUIImages/building/batimentacademique.jpg" alt="">
+  <img src="images/tabUIImages/building/library2.jpg" alt="">
+  <img src="images/tabUIImages/building/salled'etude.jpg" alt="">
+  <img src="images/tabUIImages/building/building2.jpg" alt="">
+  </div>
+
+  <div class="tabs-content campusgrid-container" data-tab="2">
+    <div class="image"><img src="images/tabUIImages/building/classroom1.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/building/salled'etude.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/building/salledediscussion.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/building/salledeconference.jpg" alt=""></div>
+  </div>
+
+  <div class="tabs-content campusgrid-container" data-tab="3">
+    <div class="image"><img src="images/tabUIImages/sport/terrainfootball.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/sport/terrainfutsal.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/sport/terrainvolleyball.png" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/sport/terrainbasket.webp" alt=""></div>
+  </div>
+
+  <div class="tabs-content campusgrid-container" data-tab="4">
+    <div class="image"><img src="images/tabUIImages/sport/gym.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/sport/parcdedetente.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/sport/espaceconcert.jpg" alt=""></div>
+    <div class="image"><img src="images/tabUIImages/building/library2.jpg" alt=""></div>
+  </div>
+</section>
+
+          <h1 style="text-align:center;">Pourquoi Nous Choisir ?</h1>
+      <section class="choose-us-container">
+       <div class="grid-element-1">
+        <div class="grid-element-title">
+        <h2>Apprentissage Moderne</h2>
+        </div>
+          
+       </div>
+       <div class="grid-element-2">
+        <div class="grid-element-title">
+        <h2>Collaboration & Communauté</h2>
         </div>
         
-        <div class="tabs-content campusflex-container" data-tab="1">
-          <img src="images/tabUIImages/building/batimentacademique.jpg" alt="">
-          <img src="images/tabUIImages/building/library2.jpg" alt="">
-          <img src="images/tabUIImages/building/salled'etude.jpg" alt="">
-          <img src="images/tabUIImages/building/building2.jpg" alt=""> 
+       </div>
+       <div class="grid-element-3">
+        <div class="grid-element-title">
+        <h2>Parcours Personnalisé</h2>
         </div>
         
-        <div class="tabs-content campusflex-container" data-tab="2">
-          <img src="images/tabUIImages/building/classroom1.jpg" alt="">
-          <img src="images/tabUIImages/building/salled'etude.jpg" alt="">
-          <img src="images/tabUIImages/building/salledediscussion.jpg" alt="">
-          <img src="images/tabUIImages/building/salledeconference.jpg" alt="">
+       </div>
+       <div class="grid-element-4">
+        <div class="grid-element-title">
+        <h2>Compétences du Futur</h2> 
         </div>
-        
-        
-        <div class="tabs-content campusflex-container" data-tab="3">
-          <img src="images/tabUIImages/sport/terrainfootball.jpg" alt="">
-          <img src="images/tabUIImages/sport/terrainfutsal.jpg" alt="">
-          <img src="images/tabUIImages/sport/terrainvolleyball.png" alt="">
-          <img src="images/tabUIImages/sport/terrainbasket.webp" alt="">
-        </div>
-        
-        <div class="tabs-content campusflex-container" data-tab="4">
-          <img src="images/tabUIImages/sport/gym.jpg" alt="">
-          <img src="images/tabUIImages/sport/parcdedetente.jpg" alt="">
-          <img src="images/tabUIImages/sport/espaceconcert.jpg" alt="">
-          <img src="images/tabUIImages/building/library2.jpg" alt="">
-        </div>
-      </section>
-     
+         
+       </div>
+    </section>
+
+<!------
       <section class="why-choose-us">
         <h1 class="choose-title">Pourquoi Nous Choisir</h1>
       
@@ -211,7 +238,7 @@ $error = '';
       <div class="comment-postuler-title">
         <h1>Prêt(e) à Nous Rejoindre ? Voici Comment Faire !</h1>
       </div>
-     
+   
       <section class="commentpostuler">
        
         <div class="commentpostuler-element">
@@ -248,6 +275,7 @@ $error = '';
           <p>Finaliser l'inscription</p>
         </div>
       </section>
+      ------>
 
       <section class="testimonials-wrapper">
           <h1>Témoignages de Confiance</h1>
@@ -385,6 +413,35 @@ $error = '';
 
   
        
-   
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const tabButtons = document.querySelectorAll(".tabs-buttons");
+  const tabContents = document.querySelectorAll(".tabs-content");
+
+  if (!tabButtons.length || !tabContents.length) return;
+
+  // reset all
+  tabButtons.forEach(btn => btn.classList.remove("btn-active"));
+  tabContents.forEach(c => c.classList.remove("tabs-content-active"));
+
+  // activate first tab by default
+  tabButtons[0].classList.add("btn-active");
+  tabContents[0].classList.add("tabs-content-active");
+
+  // click events
+  tabButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const currentTab = button.dataset.tab;
+
+      tabButtons.forEach(btn => btn.classList.remove("btn-active"));
+      tabContents.forEach(content => content.classList.remove("tabs-content-active"));
+
+      button.classList.add("btn-active");
+      const activeContent = document.querySelector(`.tabs-content[data-tab="${currentTab}"]`);
+      if (activeContent) activeContent.classList.add("tabs-content-active");
+    });
+  });
+});
+  </script>
 <script src="js/script.js"></script>
 <?php include 'partials/footer.php'?>

@@ -1,0 +1,26 @@
+.choose-us-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 100%;
+    
+    gap: 30px;
+    justify-content: center;
+    background-color: red;
+    grid-template-rows: auto auto;
+    padding: 50px 50px;
+}
+.choose-us-container .grid-element1{
+   grid-column: span 2;
+   color: white;
+   
+}
+.grid-element2{
+    grid-column: span 1;
+    grid-row: span 2;
+}
+.grid-element3{
+   grid-column: span 1;
+}
+.grid-element4{
+    grid-row: span 1;
+}

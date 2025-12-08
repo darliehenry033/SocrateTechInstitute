@@ -15,34 +15,7 @@ closeIcon.addEventListener('click', ()=>{
 });
 /*Tab UI */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const tabButtons = document.querySelectorAll(".tabs-buttons");
-  const tabContents = document.querySelectorAll(".tabs-content");
 
-  if (!tabButtons.length || !tabContents.length) return;
-
-  // reset all
-  tabButtons.forEach(btn => btn.classList.remove("btn-active"));
-  tabContents.forEach(c => c.classList.remove("tabs-content-active"));
-
-  // activate first tab by default
-  tabButtons[0].classList.add("btn-active");
-  tabContents[0].classList.add("tabs-content-active");
-
-  // click events
-  tabButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      const currentTab = button.dataset.tab;
-
-      tabButtons.forEach(btn => btn.classList.remove("btn-active"));
-      tabContents.forEach(content => content.classList.remove("tabs-content-active"));
-
-      button.classList.add("btn-active");
-      const activeContent = document.querySelector(`.tabs-content[data-tab="${currentTab}"]`);
-      if (activeContent) activeContent.classList.add("tabs-content-active");
-    });
-  });
-});
 
 
 
