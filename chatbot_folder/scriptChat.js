@@ -8,89 +8,63 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendBtn = document.getElementById("send-btn");
   const faqButtons = document.querySelectorAll(".faq-btn");
   const faqSection = document.getElementById("faq-buttons");
+  const backButton = document.getElementById("back_button");
   const subQuestionsDiv = document.getElementById("sub-questions");
 
-   bubble.addEventListener("click", () =>{
-
+  bubble.addEventListener("click", () => {
     chatWindow.classList.toggle("open");
-    topWindow.classList.toggle("open");
-    topIcon.classList.toggle("open");
-   });
-   
+  });
+
 
   function timeNow() {
     const d = new Date();
     return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }
-  
-  faqButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const category = btn.dataset.category;
-      const data = faqData[category];
 
-      faqSection.style.display = "none";  
-      subQuestionsDiv.style.display = "flex"; 
-      subQuestionsDiv.innerHTML = "";
+faqButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const category = btn.dataset.category;
+    const data = faqData[category];
 
-      const back = document.createElement("button");
-      back.className = "faq-btn";
-      back.textContent = "← Back to Categories";
-      back.addEventListener("click", () => {
-        subQuestionsDiv.innerHTML = "";
+    faqSection.style.display = "none";
+    subQuestionsDiv.style.display = "flex";
+    subQuestionsDiv.innerHTML = ""; 
+     subQuestionsDiv.prepend(backButton);
+      backButton.style.display="block";
+
+     data.questions.forEach(q => {
+      const qBtn = document.createElement("button");
+      qBtn.className = "faq-btn";  
+      qBtn.textContent = q;
+      
+      qBtn.addEventListener("click", () => {
+        faqSection.style.display = "none";
         subQuestionsDiv.style.display = "none";
-        faqSection.style.display = "flex";
-
+        backButton.style.display = "none";
+        showAnswer(q, data.answers[q]);
+     
       });
 
-      subQuestionsDiv.appendChild(back);
-
-      data.questions.forEach(q => {
-        const qBtn = document.createElement("button");
-        qBtn.className = "faq-btn"; 
-        qBtn.textContent = q;
-
-        qBtn.addEventListener("click", () => {
-          showAnswer(q, data.answers[q]);
-        });
-
-        subQuestionsDiv.appendChild(qBtn);
-        
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      });
+      subQuestionsDiv.appendChild(qBtn);
+  
     });
   });
+});
 
-  
-  function showAnswer(question, answer) {
-    addMessage({ sender: "user", text: question });
-    addMessage({ sender: "bot", text: answer });
-  }
 
-  function showFAQButton(text, onClick) {
-  const btn = document.createElement("button");
-  btn.className = "faq-bubble";
-  btn.textContent = text;
-  btn.addEventListener("click", onClick);
+backButton.textContent = "←";
+backButton.addEventListener("click", () => {
+backButton.style.display="none";
+subQuestionsDiv.style.display = "none"; 
+faqSection.style.display="flex";
 
-  const wrapper = document.createElement("div");
-  wrapper.className = "message bot";
-  wrapper.appendChild(btn);
 
-  messagesEl.appendChild(wrapper);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
+});
 
-  function addMessage({ sender = "bot", text = "", avatar = null }) {
+
+  function addMessage({ sender = "bot", text = "" }) {
     const wrapper = document.createElement("div");
     wrapper.classList.add("message", sender);
-
-    if (sender === "bot" && avatar) {
-      const img = document.createElement("img");
-      img.src = avatar;
-      img.className = "avatar";
-      wrapper.appendChild(img);
-    }
-
     const content = document.createElement("div");
     content.textContent = text;
     wrapper.appendChild(content);
@@ -101,10 +75,19 @@ document.addEventListener("DOMContentLoaded", () => {
     wrapper.appendChild(meta);
 
     messagesEl.appendChild(wrapper);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    messagesEl.prepend(backButton);
+    backButton.style.display="block";
+  }
+
+  function showAnswer(question, answer) {
+    addMessage({ sender: "user", text: question });
+    addMessage({ sender: "bot", text: answer });
+    
   }
 
   async function sendMessage() {
+    faqSection.style.display = "none";
+    subQuestionsDiv.style.display = "none";
     const text = input.value.trim();
     if (!text) return;
 
@@ -113,9 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const typing = document.createElement("div");
     typing.className = "message bot typing";
-    typing.innerHTML = "<div class='msg-text'><span class='dot'></span><span class='dot'></span><span class='dot'></span></div>";
+    typing.innerHTML =
+      "<div class='msg-text'><span class='dot'></span><span class='dot'></span><span class='dot'></span></div>";
     messagesEl.appendChild(typing);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
 
     try {
       const res = await fetch("http://localhost:5000/chat", {
@@ -123,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
       });
-      const data = await res.json();
 
+      const data = await res.json();
       typing.remove();
       addMessage({ sender: "bot", text: data.reply });
 
@@ -134,10 +117,15 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
     }
   }
+  sendBtn.addEventListener("click", () => {
+    sendMessage();
+    faqSection.style.display = "none";
+  subQuestionsDiv.style.display = "none";
+  });
 
-  sendBtn.addEventListener("click", sendMessage);
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") sendMessage();
+    backButton.style.display = "block";
   });
 });
 
