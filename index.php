@@ -8,8 +8,22 @@ $error = '';
 ?>
 
 
-  <section class="bg-main-container">
+  
     <?php  include 'partials/linkheader.php';?>
+    <section class="new-hero-ui-wrapper">
+    <section class="new-hero-ui">
+     <div class="new-hero-ui-left">
+        <h1>Socrate Tech Institute</h1>
+     </div>  
+     <div class="new-hero-button-ui">
+     <a href="application.html"><button class="button postuler" type="submit">Postuler</button></a>
+     </div>
+    </section>
+    </section>
+    
+    
+    <!-----
+    <section class="bg-main-container">
     <section class="hero">
       <div class="icon-background">
         <i class="fas fa-code"></i>
@@ -51,7 +65,9 @@ $error = '';
           <img src="images/hero-image.png" alt="">
       </div>
     </section>
-  </section>
+    </section>
+    ---->
+  
 
 
     <main>

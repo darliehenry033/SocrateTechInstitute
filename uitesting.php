@@ -3,6 +3,7 @@ session_start();
 include 'database/database.php';
 include 'partials/functions.php'; 
 include 'partials/header.php';
+include 'partials/linkheader.php';
 
 $error = '';
 ?>
@@ -19,6 +20,46 @@ $error = '';
     
 </head>
 <body>
+    <section class="new-hero-ui-wrapper">
+    <section class="new-hero-ui">
+     <div class="new-hero-ui-left">
+        <h1>Socrate Tech Institute</h1>
+     </div>  
+     <div class="new-hero-button-ui">
+     <a href="application.html"><button class="button postuler" type="submit">Postuler</button></a>
+     </div>
+    </section>
+    </section>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!------
     <section class="choose-us-container">
        <div class="grid-element-1">
         <div class="grid-element-title">
@@ -106,5 +147,6 @@ $error = '';
          </div> 
        </div>
     </section>
+    ------>
 </body>
 </html>
