@@ -3,8 +3,6 @@ session_start();
 require_once __DIR__ . '/../database/database.php';
 require_once __DIR__ . '/../partials/header.php';
 
-
-/* --------------------------FLAGS & MESSAGES--------------------------------*/
 $courseAdded     = false;
 $courseEdited    = false;
 $courseDeleted   = false;
@@ -370,9 +368,6 @@ function renderGenericClassBasicInfo(mysqli $connect, int $classId): void {
     </div>
     <?php
 }
-
-/* ---------------------POST ACTIONS---------------------------------- */
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_course'])) {
     $course_name = trim($_POST['course_name'] ?? '');
     $coefficient = (int)($_POST['coefficient'] ?? 0);
@@ -1512,10 +1507,6 @@ $teachersList = getAllRows($connect, "
     </form>
   </div>
 </section>
-
-
-
-
 
 
 <script src="../js/script2.js"></script>

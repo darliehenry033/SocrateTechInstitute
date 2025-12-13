@@ -67,21 +67,6 @@ h1, h2 {
 h1,h2,h3,h4,h5,h6{
   font-family: inherit;
 }
-p{
-  margin-bottom: 20px;
-}
-h1 {
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.2;
-  margin-bottom: var(--spacing-md);
-  font-family: var(--font-body2);
-  font-weight: bold;
-}
-h2 {
-  font-size: clamp(20px, 2.2vw, 26px);
-  line-height: 1.3;
-  margin-bottom: var(--spacing-sm);
-}
 .section-title {
   position: relative;
   display: inline-block;
@@ -95,7 +80,7 @@ h2 {
   body {
     min-height: 100vh;
     width: 100%;
-    font-family: var(--font-body2);
+    font-family: var(--font-body2) !important;
     background-color: var(--color-background);
     overflow-x: hidden;
   }
@@ -3506,8 +3491,29 @@ cursor: pointer;
 }
 
 
-  
+/*Teachers dashboard*/
+.teacher-panel { 
+  display: none; 
+}
+.teacher-panel-active { 
+  display: block; 
+}
 
+.course-tab-content { 
+  display: none;
+ }
+.course-tab-content-active { 
+  display: block; 
+}
+
+ .basic-info h2,  
+ .basic-info span,
+ .tutor-info h2,
+ .tutor-info p,
+ .tutor-info span
+ {
+   margin-bottom:-5px!important;
+ }
 
  
    
