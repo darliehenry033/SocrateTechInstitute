@@ -20,6 +20,7 @@ $error = '';
     
 </head>
 <body>
+    <!--------
     <section class="new-hero-ui-wrapper">
     <section class="new-hero-ui">
      <div class="new-hero-ui-left">
@@ -30,7 +31,11 @@ $error = '';
      </div>
     </section>
     </section>
+   ---->
 
+     <div class="home-mega-section">
+        
+     </div>
     
     
 
