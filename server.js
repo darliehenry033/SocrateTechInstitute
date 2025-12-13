@@ -7,11 +7,11 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("Socrate Tech Intitute Project"));
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-app.post("/chat", async (req, res) => {
+app.post("/index", async (req, res) => {
   const { message } = req.body;
 
   try {
@@ -27,4 +27,4 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+app.listen(8888, () => console.log("Server running on http://localhost:8888/index.php"));

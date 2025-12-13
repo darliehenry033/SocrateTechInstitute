@@ -44,24 +44,16 @@ faqButtons.forEach(btn => {
         showAnswer(q, data.answers[q]);
      
       });
-
       subQuestionsDiv.appendChild(qBtn);
-  
     });
   });
 });
-
-
 backButton.textContent = "←";
 backButton.addEventListener("click", () => {
 backButton.style.display="none";
 subQuestionsDiv.style.display = "none"; 
 faqSection.style.display="flex";
-
-
 });
-
-
   function addMessage({ sender = "bot", text = "" }) {
     const wrapper = document.createElement("div");
     wrapper.classList.add("message", sender);
@@ -81,8 +73,7 @@ faqSection.style.display="flex";
 
   function showAnswer(question, answer) {
     addMessage({ sender: "user", text: question });
-    addMessage({ sender: "bot", text: answer });
-    
+    addMessage({ sender: "bot", text: answer }); 
   }
 
   async function sendMessage() {
@@ -101,7 +92,7 @@ faqSection.style.display="flex";
     messagesEl.appendChild(typing);
 
     try {
-      const res = await fetch("http://localhost:5000/chat", {
+      const res = await fetch("/index", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
